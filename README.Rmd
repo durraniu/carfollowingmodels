@@ -85,7 +85,7 @@ To predict the trajectories of the 5 following vehicles, you can use any car-fol
 library(carfollowingmodels)
 
 ## Run the IDM function:
-simulate_idm2(
+results <- simulate_idm2(
 
 resolution=0.1,
 N=5,
@@ -105,6 +105,45 @@ s_0=4,
 Tg=1,
 b=1.5
 )
+
+
+head(results)
 ```
 
+
+Now you can plot the results:
+
+```{r plots}
+library(ggplot2)
+
+## Position
+results_at_time_0_LV <- subset(results, fvn==1 & Time ==0)
+results_at_time_0_FV <- subset(results, Time ==0)
+
+ggplot() +
+  geom_rect(data = results_at_time_0_LV,
+            aes(xmin = xn1 - ln1,
+                xmax = xn1,
+                
+                ymin = 0.628,
+                ymax = 3.028)) +
+  geom_rect(data = results_at_time_0_FV,
+            aes(group = fvn,
+                fill = as.factor(fvn),
+                xmin = xn - 5,
+                xmax = xn,
+                
+                ymin = 0.628,
+                ymax = 3.028)) +
+  geom_hline(yintercept = 3.6, linetype = "longdash") +
+  coord_fixed(ratio=1)
+
+
+## Speed
+ggplot(data = results) +
+  geom_line(aes(x = Time, y = vn, color = as.factor(fvn), group=fvn)) +
+  geom_line(data = subset(results, fvn==1),
+            aes(x = Time, y = vn1, color = "LV Speed")) +
+  theme(legend.title = element_blank())
+```
 
