@@ -12,7 +12,7 @@ available in R for numerical simulation.
 ## Installation
 
 `carfollowingmodels`is not on CRAN yet. You can download the development
-version from [GitHub](https://github.com/) with:
+version from GitHub with:
 
 ``` r
 # install.packages("devtools")
@@ -74,15 +74,15 @@ ldf <- data.frame(Time, bn1_complete, xn1_complete, vn1_complete)
 
 To predict the trajectories of the 5 following vehicles, you can use any
 car-following model available in this package. For example, the
-`simulate_idm2()` function uses the Intelligent Driver Model as shown
-below. For more details on input arguments, type `?simulate_idm2`in the
+`simulate_idm()` function uses the Intelligent Driver Model as shown
+below. For more details on input arguments, type `?simulate_idm`in the
 console.
 
 ``` r
 library(carfollowingmodels)
 
 ## Run the IDM function:
-results <- simulate_idm2(
+results <- simulate_idm(
 
 resolution=0.1,
 N=5,

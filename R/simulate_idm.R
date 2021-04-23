@@ -18,8 +18,9 @@
 #' @param b Comfortable maximum deceleration rate m/s2. Double.
 #'
 #' @return A dataframe with lead and following vehicle(s) trajectories
+#' @useDynLib carfollowingmodels, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 #' @export
-#'
 #' @examples
 #' # Time
 #'last_time <- 3000 ## s
@@ -65,7 +66,7 @@
 #'ldf <- data.frame(Time, bn1_complete, xn1_complete, vn1_complete)
 #'
 #' ## Run the IDM function:
-#' simulate_idm2(
+#' simulate_idm(
 #'
 #'resolution=0.1,
 #'N=5,
@@ -85,7 +86,7 @@
 #'Tg=1,
 #'b=1.5
 #')
-simulate_idm2 <- function(
+simulate_idm <- function(
 
   ############## Simulation Parameters #######################
   resolution, # Duration of a time frame. Typical values are 0.1, 0.5, 1.0 s. Double. Must match with the resolution of the observed lead vehicle data dfn1
@@ -229,52 +230,31 @@ simulate_idm2 <- function(
 
     ###### IDM Calculations ############################
 
-    for (t in 1:(time_length-1)) {
+    result_dfn <- for_loop_idm(resolution,
+                               n,
+                               time_length,
+                               s_0,
+                               Tg,
+                               a,
+                               b,
+                               v_0,
+                               small_delta,
+                               ln1,
 
-      # desired spacing
-      sn_star[t] <- s_0 + max(0, (vn[t] * Tg) + ((vn[t] * deltav[t]) / (2 * sqrt((a * b)))))
-
-
-      # acceleration rate
-      v_dot[t] <- ifelse (
-
-        is.na(sn_star[t]),
-
-        a * (1 - ((vn[t] / v_0)^small_delta)),
-
-        a * (1 - ((vn[t] / v_0)^small_delta) - ((sn_star[t] / sn[t])^2))
-
-      )
-
-
-      # v_dot[t] <- ifelse (v_dot[t] < BMIN, BMIN, v_dot[t])
-
-      v_dot[t] <- ifelse (v_dot[t] < -b, -b, v_dot[t])
-
-
-      # speed
-      vn[t+1] <- vn[t] + (v_dot[t] * resolution)
-
-      ### if the speed is negative, make it zero
-      vn[t+1] <- ifelse(vn[t+1] < 0, 0, vn[t+1])
-
-
-
-      # position
-      xn[t+1] <- xn[t] + (vn[t] * resolution) + (0.5 * v_dot[t] * (resolution)^2)
-
-      # spacing
-      sn[t+1] <- abs(xn1[t+1] - xn[t+1]) - ln1
-
-      # speed difference
-      deltav[t+1] <- vn[t+1] - vn1[t+1]
-
-
-    }
+                               Time,
+                               vn,
+                               vn1,
+                               sn_star,
+                               sn,
+                               xn,
+                               xn1,
+                               deltav,
+                               v_dot
+    )
 
     ################## Result in a dataframe ###################################
 
-    result_dfn <- data.frame(fvn=n, Time, xn1, vn1, ln1, sn_star, v_dot, xn, vn, sn, deltav)
+    # result_dfn <- data.frame(fvn=n, Time, xn1, vn1, ln1, sn_star, v_dot, xn, vn, sn, deltav)
 
 
     list_of_N_veh[[n]] <- result_dfn
