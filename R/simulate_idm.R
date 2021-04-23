@@ -1,3 +1,89 @@
+#' Simulate Intelligent Driver Model
+#'
+#' @description This function takes in the lead vehicle trajectory and calculates speed, spacing and acceleration of the following vehicle using the Intelligent Driver Model.
+#'
+#' @param resolution Duration of a time frame. Typical values are 0.1, 0.5, 1.0 s. Double. Must match with the resolution of the observed lead vehicle data dfn1 defined below
+#' @param N Number of Following Vehicles in the same lane. Integer.
+#' @param dfn1 Unquoted name of the dataframe that contains lead vehicle data.
+#' @param xn1 Name of the column in dfn1 that contains lead vehicle position. Character.
+#' @param vn1 Name of the column in dfn1 that contains lead vehicle speed. Character.
+#' @param xn_first First value of vehicle position of each of the following vehicles. A list of doubles with size equal to N.
+#' @param vn_first First value of vehicle speed of each of the following vehicles. A list of doubles with size equal to N.
+#' @param ln Length of each of the lead vehicles. A list of doubles with size equal to N.
+#' @param a Acceleration rate starting from zero speed m/s2. Double.
+#' @param v_0 Desired speed m/s. Double.
+#' @param small_delta Acceleration exponent. Double.
+#' @param s_0 standstill bumper-to-bumper spacing m. Double.
+#' @param Tg Bumper-to-bumper time gap. Double.
+#' @param b Comfortable maximum deceleration rate m/s2. Double.
+#'
+#' @return A dataframe with lead and following vehicle(s) trajectories
+#' @export
+#'
+#' @examples
+#' # Time
+#'last_time <- 3000 ## s
+#'time_frame <- 0.1 ## s
+#'Time <- seq(from = 0, to = last_time, by = time_frame)
+#'time_length <- length(Time)
+#'
+#'
+#'
+#'## Lead vehicle
+#'vn1_first <- 13.9 ## first speed m/s
+#'xn1_first <- 100 ## position of lead vehicle front center m
+#'bn1_complete <- c(rep(0, 29500),
+#'                  rep(-5, time_length - 29500))
+#'
+#'
+#'
+#'#############################################
+#'### Complete speed trajectory of Lead vehicle
+#'#############################################
+#'
+#'vn1_complete <- rep(NA_real_, time_length) ### an empty vector
+#'xn1_complete <- rep(NA_real_, time_length) ### an empty vector
+#'
+#'vn1_complete[1] <- vn1_first
+#'xn1_complete[1] <- xn1_first
+#'
+#'for (t in 2:time_length) {
+#'
+#'  ### Lead vehicle calculations
+#'  vn1_complete[t] <- vn1_complete[t-1] + (bn1_complete[t-1] * time_frame)
+#'
+#'  vn1_complete[t] <- ifelse(vn1_complete[t] < 0, 0, vn1_complete[t])
+#'
+#'
+#'  xn1_complete[t] <- xn1_complete[t-1] + (vn1_complete[t-1] * time_frame) + #'(0.5 * bn1_complete[t-1] * (time_frame)^2)
+#'
+#'}
+#'
+#'
+#'
+#'ldf <- data.frame(Time, bn1_complete, xn1_complete, vn1_complete)
+#'
+#' ## Run the IDM function:
+#' simulate_idm2(
+#'
+#'resolution=0.1,
+#'N=5,
+#'
+#'dfn1=ldf,
+#'xn1="xn1_complete",
+#'vn1="vn1_complete",
+#'
+#'xn_first=list(85, 70, 55, 40, 25),
+#'vn_first=list(12, 12, 12, 12, 12),
+#'ln=list(5, 5, 5, 5, 5),
+#'
+#'a=2,
+#'v_0=14.4,
+#'small_delta=1,
+#'s_0=4,
+#'Tg=1,
+#'b=1.5
+#')
 simulate_idm2 <- function(
 
   ############## Simulation Parameters #######################
