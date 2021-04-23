@@ -136,7 +136,8 @@ ggplot() +
                 ymin = 0.628,
                 ymax = 3.028)) +
   geom_hline(yintercept = 3.6, linetype = "longdash") +
-  coord_fixed(ratio=1)
+  coord_fixed(ratio=1) +
+  theme(legend.title = element_blank())
 
 
 ## Speed
