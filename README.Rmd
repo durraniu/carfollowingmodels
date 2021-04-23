@@ -1,0 +1,110 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# carfollowingmodels
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of `carfollowingmodels` is to make several car following models available in R for numerical simulation.
+
+## Installation
+
+`carfollowingmodels`is not on CRAN yet. You can download the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("durraniu/carfollowingmodels")
+```
+## Example
+
+To use any car-following model, you need to provide the lead vehicle data, initial position, speed and/or acceleration of following vehicle(s), and model parameters.  
+
+Following shows an example with 5 following vehicles. The lead vehicle is moving at 13.9 m/s at the reference position of 100 m.
+
+```{r example}
+# Time
+last_time <- 3000 ## s
+time_frame <- 0.1 ## s
+Time <- seq(from = 0, to = last_time, by = time_frame)
+time_length <- length(Time)
+
+
+
+## Lead vehicle
+vn1_first <- 13.9 ## first speed m/s
+xn1_first <- 100 ## position of lead vehicle front center m
+bn1_complete <- c(rep(0, 29500),
+                 rep(-5, time_length - 29500))
+
+
+
+#############################################
+### Complete speed trajectory of Lead vehicle
+#############################################
+
+vn1_complete <- rep(NA_real_, time_length) ### an empty vector
+xn1_complete <- rep(NA_real_, time_length) ### an empty vector
+
+vn1_complete[1] <- vn1_first
+xn1_complete[1] <- xn1_first
+
+for (t in 2:time_length) {
+
+ ### Lead vehicle calculations
+ vn1_complete[t] <- vn1_complete[t-1] + (bn1_complete[t-1] * time_frame)
+
+ vn1_complete[t] <- ifelse(vn1_complete[t] < 0, 0, vn1_complete[t])
+
+
+ xn1_complete[t] <- xn1_complete[t-1] + (vn1_complete[t-1] * time_frame) +
+  (0.5 * bn1_complete[t-1] * (time_frame)^2)
+
+}
+
+## Lead vehicle data in a dataframe
+ldf <- data.frame(Time, bn1_complete, xn1_complete, vn1_complete)
+```
+
+
+To predict the trajectories of the 5 following vehicles, you can use any car-following model available in this package. For example, the `simulate_idm2()` function uses the Intelligent Driver Model as shown below. For more details on input arguments, type `?simulate_idm2`in the console.
+
+```{r exampleCont}
+library(carfollowingmodels)
+
+## Run the IDM function:
+simulate_idm2(
+
+resolution=0.1,
+N=5,
+
+dfn1=ldf,
+xn1="xn1_complete",
+vn1="vn1_complete",
+
+xn_first=list(85, 70, 55, 40, 25),
+vn_first=list(12, 12, 12, 12, 12),
+ln=list(5, 5, 5, 5, 5),
+
+a=2,
+v_0=14.4,
+small_delta=1,
+s_0=4,
+Tg=1,
+b=1.5
+)
+```
+
+
