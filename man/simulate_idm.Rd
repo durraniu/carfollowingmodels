@@ -48,7 +48,7 @@ simulate_idm(
 
 \item{Tg}{Bumper-to-bumper time gap. Double.}
 
-\item{b}{Comfortable maximum deceleration rate m/s2. Double.}
+\item{b}{Comfortable maximum deceleration rate m/s2. Double and Positive.}
 }
 \value{
 A dataframe with lead and following vehicle(s) trajectories

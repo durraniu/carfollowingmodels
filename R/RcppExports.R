@@ -5,3 +5,7 @@ for_loop_idm <- function(resolution, n, time_length, s_0, Tg, a, b, v_0, small_d
     .Call(`_carfollowingmodels_for_loop_idm`, resolution, n, time_length, s_0, Tg, a, b, v_0, small_delta, ln1, Time, vn, vn1, sn_star, sn, xn, xn1, deltav, v_dot)
 }
 
+for_loop_gipps <- function(resolution, n, time_length, tau, an, bn, Vn, bcap, ln1, Time, vn_ff, vn_cf, vn, vn1, sn, xn, xn1, deltav, bn_v) {
+    .Call(`_carfollowingmodels_for_loop_gipps`, resolution, n, time_length, tau, an, bn, Vn, bcap, ln1, Time, vn_ff, vn_cf, vn, vn1, sn, xn, xn1, deltav, bn_v)
+}
+

@@ -79,13 +79,15 @@ ldf <- data.frame(Time, bn1_complete, xn1_complete, vn1_complete)
 ```
 
 
+## Intelligent Driver Model (IDM)
+
 To predict the trajectories of the 5 following vehicles, you can use any car-following model available in this package. For example, the `simulate_idm()` function uses the Intelligent Driver Model as shown below. For more details on input arguments, type `?simulate_idm`in the console.
 
 ```{r exampleCont}
 library(carfollowingmodels)
 
 ## Run the IDM function:
-results <- simulate_idm(
+results_idm <- simulate_idm(
 
 resolution=0.1,
 N=5,
@@ -107,18 +109,18 @@ b=1.5
 )
 
 
-head(results)
+head(results_idm)
 ```
 
 
 Now you can plot the results:
 
 ```{r plots}
-library(ggplot2)
+library(tidyverse)
 
 ## Position
-results_at_time_0_LV <- subset(results, fvn==1 & Time ==0)
-results_at_time_0_FV <- subset(results, Time ==0)
+results_at_time_0_LV <- subset(results_idm, fvn==1 & Time ==0)
+results_at_time_0_FV <- subset(results_idm, Time ==0)
 
 ggplot() +
   geom_rect(data = results_at_time_0_LV,
@@ -141,10 +143,71 @@ ggplot() +
 
 
 ## Speed
-ggplot(data = results) +
+ggplot(data = results_idm) +
   geom_line(aes(x = Time, y = vn, color = as.factor(fvn), group=fvn)) +
-  geom_line(data = subset(results, fvn==1),
+  geom_line(data = subset(results_idm, fvn==1),
             aes(x = Time, y = vn1, color = "LV Speed")) +
   theme(legend.title = element_blank())
+```
+
+
+## Gipps Model
+
+```{r}
+results_gipps <- simulate_gipps(
+
+
+resolution=0.1,  
+N=5,
+
+dfn1=ldf, 
+xn1="xn1_complete", 
+vn1="vn1_complete", 
+
+
+
+xn_first=list(85, 70, 55, 40, 25),
+vn_first=list(12, 12, 12, 12, 12), 
+ln=list(6.5, 6.5, 6.5, 6.5, 6.5),
+
+
+
+an=2, 
+Vn=14.4, 
+tau=0.1, 
+bn=-1.5, 
+bcap=-2 
+)
+
+
+head(results_gipps)
+
+
+## Speed
+ggplot(data = results_gipps) +
+  geom_line(aes(x = Time, y = vn, color = as.factor(fvn), group=fvn)) +
+  geom_line(data = subset(results_gipps, fvn==1),
+            aes(x = Time, y = vn1, color = "LV Speed")) +
+  theme(legend.title = element_blank())
+```
+
+### Compare Models
+
+Following shows the speed of first following vehicle as predicted by different models:
+
+```{r}
+results_gipps_fv1 <- results_gipps %>% 
+  filter(fvn == 1)
+
+results_idm_fv1 <- results_idm %>% 
+  filter(fvn == 1)
+
+ggplot() +
+  geom_line(data = results_gipps_fv1 ,
+            aes(x = Time, y = vn, color = "Gipps Speed")) +
+  geom_line(data = results_idm_fv1 ,
+            aes(x = Time, y = vn, color = "IDM Speed")) +
+  geom_line(data = results_idm_fv1 ,
+            aes(x = Time, y = vn1, color = "LV Speed"), linetype = "longdash")
 ```
 

@@ -1,26 +1,24 @@
-#' Simulate Intelligent Driver Model
+#' Simulate Gipps Model
 #'
-#' @description This function takes in the lead vehicle trajectory and calculates speed, spacing and acceleration of the following vehicle using the Intelligent Driver Model.
+#' @description This function takes in the lead vehicle trajectory and calculates speed, spacing and acceleration of the following vehicle using the Gipps Model.
 #'
 #' @param resolution Duration of a time frame. Typical values are 0.1, 0.5, 1.0 s. Double. Must match with the resolution of the observed lead vehicle data dfn1 defined below
-#' @param N Number of Following Vehicles in the same lane. Integer.
+#' @param N Number of Following Vehicles in the same lane (platoon). Integer.
 #' @param dfn1 Unquoted name of the dataframe that contains lead vehicle data.
 #' @param xn1 Name of the column in dfn1 that contains lead vehicle position. Character.
 #' @param vn1 Name of the column in dfn1 that contains lead vehicle speed. Character.
 #' @param xn_first First value of vehicle position of each of the following vehicles. A list of doubles with size equal to N.
 #' @param vn_first First value of vehicle speed of each of the following vehicles. A list of doubles with size equal to N.
-#' @param ln Length of each of the lead vehicles. A list of doubles with size equal to N.
-#' @param a Acceleration rate starting from zero speed m/s2. Double.
-#' @param v_0 Desired speed m/s. Double.
-#' @param small_delta Acceleration exponent. Double.
-#' @param s_0 standstill bumper-to-bumper spacing m. Double.
-#' @param Tg Bumper-to-bumper time gap. Double.
-#' @param b Comfortable maximum deceleration rate m/s2. Double and Positive.
+#' @param ln Length of each of the lead vehicles. A list of doubles with size equal to N. Note that it is called as sn in Gipps Model
+#' @param an Maximum acceleration which the driver wishes to undertake m/s2. Double.
+#' @param Vn Desired speed/speed at which driver  wishes to travel m/s. Double.
+#' @param tau Reaction Time s. Double.
+#' @param bn Most severe braking that the driver wishes to undertake m/s2. Double and Negative.
+#' @param bcap An estimate of lead vehicle deceleration m/s2. Double and Negative.
 #'
 #' @return A dataframe with lead and following vehicle(s) trajectories
-#' @useDynLib carfollowingmodels, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
 #' @export
+#'
 #' @examples
 #' # Time
 #'last_time <- 3000 ## s
@@ -65,28 +63,35 @@
 #'
 #'ldf <- data.frame(Time, bn1_complete, xn1_complete, vn1_complete)
 #'
-#' ## Run the IDM function:
-#' simulate_idm(
+#' ## Run the Gipps function:
+#' simulate_gipps(
 #'
-#'resolution=0.1,
-#'N=5,
+#'############## Simulation Parameters #######################
+#'resolution=0.1, # Duration of a time frame. Typical values are 0.1, 0.5, 1.0 s. #'Double. Must match with the resolution of the observed lead vehicle data dfn1
+#'N=5, # Number of Following Vehicles in the same lane (platoon). Integer.
 #'
-#'dfn1=ldf,
-#'xn1="xn1_complete",
-#'vn1="vn1_complete",
 #'
-#'xn_first=list(85, 70, 55, 40, 25),
-#'vn_first=list(12, 12, 12, 12, 12),
-#'ln=list(5, 5, 5, 5, 5),
+#'############### Lead Vehicle Data #########################
+#'dfn1=ldf, # Name (unquoted) of the dataframe that contains lead vehicle data.
+#'xn1="xn1_complete", # Name of the column in dfn1 that contains lead vehicle #'position. Character.
+#'vn1="vn1_complete", # Name of the column in dfn1 that contains lead vehicle speed. #'Character.
 #'
-#'a=2,
-#'v_0=14.4,
-#'small_delta=1,
-#'s_0=4,
-#'Tg=1,
-#'b=1.5
+#'
+#'
+#'############### Following Vehicle Data ####################
+#'xn_first=list(85, 70, 55, 40, 25), # First value of vehicle position of each of the #'following vehicles. A list of doubles with size equal to N.
+#'vn_first=list(12, 12, 12, 12, 12), # First value of vehicle speed of each of the #'following vehicles. A list of doubles with size equal to N.
+#'ln=list(6.5, 6.5, 6.5, 6.5, 6.5), # Effective size of each of the lead vehicles i.e#'. vehicle length plus margin of safety. A list of doubles with size equal to N.
+#'
+#'
+#'############### Model Parameters ##########################
+#'an=2, # Maximum acceleration which the driver wishes to undertake m/s2. Double.
+#'Vn=14.4, # Desired speed/speed at which driver  wishes to travel m/s. Double.
+#'tau=0.1, # Reaction Time s. Double.
+#'bn=-1.5, # Most severe braking that the driver wishes to undertake m/s2. Double.
+#'bcap=-2 # An estimate of lead vehicle deceleration m/s2. Double.
 #')
-simulate_idm <- function(
+simulate_gipps <- function(
 
   ############## Simulation Parameters #######################
   resolution, # Duration of a time frame. Typical values are 0.1, 0.5, 1.0 s. Double. Must match with the resolution of the observed lead vehicle data dfn1
@@ -103,24 +108,19 @@ simulate_idm <- function(
   ############### Following Vehicle Data ####################
   xn_first, # First value of vehicle position of each of the following vehicles. A list of doubles with size equal to N.
   vn_first, # First value of vehicle speed of each of the following vehicles. A list of doubles with size equal to N.
-  ln, # Length of each of the lead vehicles. A list of doubles with size equal to N.
-
+  ln, # Effective size of each of the lead vehicles i.e. vehicle length plus margin of safety. A list of doubles with size equal to N.
 
 
   ############### Model Parameters ##########################
-  a, # Acceleration rate starting from zero speed m/s2. Double.
-  v_0, # Desired speed m/s. Double.
-  small_delta, # Acceleration exponent. Double.
-  s_0, # standstill bumper-to-bumper spacing m. Double.
-  Tg, # Time gap (bumper-to-bumper). Double.
-  b # Comfortable maximum deceleration rate m/s2. Double.
+  an, # Maximum acceleration which the driver wishes to undertake m/s2. Double.
+  Vn, # Desired speed/speed at which driver  wishes to travel m/s. Double.
+  tau, # Reaction Time s. Double.
+  bn, # Most severe braking that the driver wishes to undertake m/s2. Double and Negative.
+  bcap # An estimate of lead vehicle deceleration m/s2. Double and Negative.
 
 
 
 ) {
-
-
-
 
   ####### Time #############################################
 
@@ -164,8 +164,12 @@ simulate_idm <- function(
 
     ####### Allocate Vectors ##################################
 
-    # acceleration rate
-    v_dot <- rep(NA_real_, time_length)
+    # free-flow speed
+    vn_ff <- rep(NA_real_, time_length)
+
+
+    # car-following speed
+    vn_cf <- rep(NA_real_, time_length)
 
     # speed
     vn <- rep(NA_real_, time_length)
@@ -179,82 +183,56 @@ simulate_idm <- function(
     # speed difference
     deltav <- rep(NA_real_, time_length)
 
-    # desired spacing
-    sn_star <- rep(NA_real_, time_length)
+    # acceleration rate
+    bn_v <- rep(NA_real_, time_length)
 
 
 
     ######## Initial values for Following vehicle ##################################
 
     # speed
+    vn_ff[1] <- vn_first[[n]]
+    vn_ff[1] <- vn_first[[n]]
     vn[1] <- vn_first[[n]]
 
     # position
     xn[1] <- xn_first[[n]]
 
     # spacing
-    # sn[1] <- ifelse (
-    #
-    #   n == 1L,
-    #
-    #   abs(xn1[1] - xn_first[[n]]) - ln1,
-    #
-    #   abs(xn_first[[n-1]] - xn_first[[n]]) - ln[[n-1]]
-    #
-    # )
-
-
     sn[1] <- abs(xn1[1] - xn_first[[n]]) - ln1
 
-
-
     # speed difference
-    # deltav[1] <- ifelse (
-    #
-    #   n == 1L,
-    #
-    #   vn_first[[n]] - vn1[1],
-    #
-    #   vn_first[[n]] - vn_first[[n-1]]
-    #
-    # )
-
-
     deltav[1] <- vn_first[[n]] - vn1[1]
 
 
 
-    # maximum deceleration
-    # BMIN <- -8
+    ###### Gipps Calculations ############################
 
+    result_dfn <- for_loop_gipps(resolution,
+                                 n,
+                                 time_length,
+                                 tau,
+                                 an,
+                                 bn,
+                                 Vn,
+                                 bcap,
+                                 ln1,
 
-    ###### IDM Calculations ############################
-
-    result_dfn <- for_loop_idm(resolution,
-                               n,
-                               time_length,
-                               s_0,
-                               Tg,
-                               a,
-                               b,
-                               v_0,
-                               small_delta,
-                               ln1,
-
-                               Time,
-                               vn,
-                               vn1,
-                               sn_star,
-                               sn,
-                               xn,
-                               xn1,
-                               deltav,
-                               v_dot
+                                 Time,
+                                 vn_ff,
+                                 vn_cf,
+                                 vn,
+                                 vn1,
+                                 sn,
+                                 xn,
+                                 xn1,
+                                 deltav,
+                                 bn_v
     )
 
     ################## Result in a dataframe ###################################
 
-    # result_dfn <- data.frame(fvn=n, Time, xn1, vn1, ln1, sn_star, v_dot, xn, vn, sn, deltav)
+
 
 
     list_of_N_veh[[n]] <- result_dfn
@@ -269,4 +247,5 @@ simulate_idm <- function(
 
   # return the result dataframe
   return(result)
+
 }

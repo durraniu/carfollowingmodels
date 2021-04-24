@@ -1,0 +1,106 @@
+#include <cmath>
+#include <Rcpp.h>
+using namespace Rcpp;
+
+
+
+// [[Rcpp::export]]
+DataFrame for_loop_gipps(double resolution,
+                         int n,
+                         int time_length,
+                         double tau,
+                         double an,
+                         double bn,
+                         double Vn,
+                         double bcap,
+                         double ln1,
+
+                         NumericVector Time,
+                         NumericVector vn_ff,
+                         NumericVector vn_cf,
+                         NumericVector vn,
+                         NumericVector vn1,
+                         NumericVector sn,
+                         NumericVector xn,
+                         NumericVector xn1,
+                         NumericVector deltav,
+                         NumericVector bn_v
+) {
+
+
+  for(int t = 1; t < (time_length-1); t++) {
+
+
+    // ## free flow
+    vn_ff[t] = vn[t-1] + (2.5 * an * tau * (1 - (vn[t-1])/Vn)) * ((0.025 + pow((vn[t-1]/Vn), 0.5)));
+
+
+    // ## car following
+    vn_cf[t] = (bn * tau) + sqrt(
+      (pow(bn,2) * pow(tau,2)) - (bn * (2 * (xn1[t-1] - ln1 - xn[t-1]) - (vn[t-1] * tau) - (pow((vn1[t-1]),2)/bcap)))
+    );
+
+
+    // ## gipps speed
+
+
+    if (vn_ff[t] < vn_cf[t]){
+
+      vn[t] = vn_ff[t];
+
+    } else {
+
+      vn[t] = vn_cf[t];
+
+    }
+
+    // ### if the speed is negative, make it zero
+
+
+    if (vn[t] < 0) {
+
+      vn[t] = 0;
+
+    } else {
+
+      vn[t] = vn[t];
+
+    }
+
+
+    // ## acceleration
+    bn_v[t-1] = (vn[t] - vn[t-1])/(resolution);
+
+
+
+    // ## position
+    xn[t] = xn[t-1] + (vn[t-1] * resolution) + (0.5 * bn_v[t-1] * pow(resolution, 2));
+
+
+    // # spacing
+    sn[t] = abs(xn1[t] - xn[t]) - ln1;
+
+
+    // # speed difference
+    deltav[t] = vn[t] - vn1[t];
+
+
+  }
+
+  DataFrame df = DataFrame::create(Named("fvn") = n,
+                                   Named("Time") = Time,
+                                   Named("xn1") = xn1,
+                                   Named("vn1") = vn1,
+                                   Named("ln1") = ln1,
+                                   Named("bcap") = bcap,
+                                   Named("bn") = bn,
+                                   Named("bn_v") = bn_v,
+                                   Named("xn") = xn,
+                                   Named("vn") = vn,
+                                   Named("sn") = sn,
+                                   Named("deltav") = deltav);
+
+  return df;
+
+
+}
