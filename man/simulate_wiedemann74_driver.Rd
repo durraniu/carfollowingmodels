@@ -14,7 +14,6 @@ simulate_wiedemann74_driver(
   xn_first,
   vn_first,
   ln,
-  wn,
   D_MAX,
   V_MAX,
   V_DESIRED,
@@ -48,8 +47,6 @@ simulate_wiedemann74_driver(
 
 \item{ln}{Length of each of the lead vehicles. A list of doubles with size equal to N.}
 
-\item{wn}{Width of each of the lead vehicles. A list of doubles with size equal to N.}
-
 \item{D_MAX}{Upper limit of reaction spacing. Double. Typical value is 150 m.}
 
 \item{V_MAX}{Maximum speed of the following vehicle model. Double. Typical values are 40 m/s, 60 m/s.}
@@ -79,4 +76,73 @@ A dataframe with lead and following vehicle(s) trajectories. It also returns all
 }
 \description{
 This function takes in the lead vehicle trajectory and calculates speed, spacing and acceleration of the following vehicle using the Wiedemann74 Model.It also estimates the car-following state in each time frame.
+}
+\examples{
+# Time
+last_time <- 3000 ## s
+time_frame <- 0.1 ## s
+Time <- seq(from = 0, to = last_time, by = time_frame)
+time_length <- length(Time)
+
+
+
+## Lead vehicle
+vn1_first <- 13.9 ## first speed m/s
+xn1_first <- 100 ## position of lead vehicle front center m
+bn1_complete <- c(rep(0, 29500),
+                 rep(-5, time_length - 29500))
+
+
+
+#############################################
+### Complete speed trajectory of Lead vehicle
+#############################################
+
+vn1_complete <- rep(NA_real_, time_length) ### an empty vector
+xn1_complete <- rep(NA_real_, time_length) ### an empty vector
+
+vn1_complete[1] <- vn1_first
+xn1_complete[1] <- xn1_first
+
+for (t in 2:time_length) {
+
+ ### Lead vehicle calculations
+ vn1_complete[t] <- vn1_complete[t-1] + (bn1_complete[t-1] * time_frame)
+
+ vn1_complete[t] <- ifelse(vn1_complete[t] < 0, 0, vn1_complete[t])
+
+
+ xn1_complete[t] <- xn1_complete[t-1] + (vn1_complete[t-1] * time_frame) +
+  (0.5 * bn1_complete[t-1] * (time_frame)^2)
+
+}
+
+
+
+ldf <- data.frame(Time, bn1_complete, xn1_complete, vn1_complete)
+
+# Run the Wiedemann function:
+simulate_wiedemann74_driver(
+ resolution=0.1,
+ N=5,
+ dfn1=ldf,
+ xn1="xn1_complete",
+ vn1="vn1_complete",
+ bn1="bn1_complete",
+ xn_first=list(85, 70, 55, 40, 25),
+ vn_first=list(12, 12, 12, 12, 12),
+ ln=list(5, 5, 5, 5, 5),
+ D_MAX=150,
+ V_MAX=44,
+ V_DESIRED=14.4,
+ FAKTORVmult=0.001,
+ BMAXmult=0.08,
+ BNULLmult=0.25,
+ BMIN=-5,
+ CX=50,
+ AXadd=2,
+ BXadd=2,
+ EXadd=2,
+ OPDVadd=1.5
+)
 }
