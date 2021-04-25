@@ -296,24 +296,30 @@ ggplot(data = results_w74d) +
 
 ### Compare Models
 
-Following shows the speed of first following vehicle as predicted by
-different models:
+Comparing models is difficult as each model has at least a few unique
+parameters of its own. Nevertheless, following shows the speed of the
+fifth following vehicle as predicted by different models:
 
 ``` r
 results_gipps_fv1 <- results_gipps %>% 
-  filter(fvn == 1)
+  filter(fvn == 5)
 
 results_idm_fv1 <- results_idm %>% 
-  filter(fvn == 1)
+  filter(fvn == 5)
+
+results_w74d_fv1 <- results_w74d %>% 
+  filter(fvn == 5)
 
 ggplot() +
   geom_line(data = results_gipps_fv1 ,
             aes(x = Time, y = vn, color = "Gipps Speed")) +
   geom_line(data = results_idm_fv1 ,
             aes(x = Time, y = vn, color = "IDM Speed")) +
+  geom_line(data = results_w74d_fv1 ,
+            aes(x = Time, y = vn, color = "W74 Speed")) +
   geom_line(data = results_idm_fv1 ,
             aes(x = Time, y = vn1, color = "LV Speed"), linetype = "longdash")
-#> Warning: Removed 438 row(s) containing missing values (geom_path).
+#> Warning: Removed 434 row(s) containing missing values (geom_path).
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
