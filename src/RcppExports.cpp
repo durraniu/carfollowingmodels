@@ -63,10 +63,41 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// for_loop_wiedemann
+DataFrame for_loop_wiedemann(double D_MAX, int time_length, double BXadd, double AX, double CX, double EX, double OPDVadd, double BMAXmult, double V_MAX, double FaktorV, double BMIN, double BNULL, double resolution, NumericVector vn, NumericVector vn1, NumericVector sn, NumericVector xn, NumericVector xn1, NumericVector deltav, NumericVector bn1);
+RcppExport SEXP _carfollowingmodels_for_loop_wiedemann(SEXP D_MAXSEXP, SEXP time_lengthSEXP, SEXP BXaddSEXP, SEXP AXSEXP, SEXP CXSEXP, SEXP EXSEXP, SEXP OPDVaddSEXP, SEXP BMAXmultSEXP, SEXP V_MAXSEXP, SEXP FaktorVSEXP, SEXP BMINSEXP, SEXP BNULLSEXP, SEXP resolutionSEXP, SEXP vnSEXP, SEXP vn1SEXP, SEXP snSEXP, SEXP xnSEXP, SEXP xn1SEXP, SEXP deltavSEXP, SEXP bn1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type D_MAX(D_MAXSEXP);
+    Rcpp::traits::input_parameter< int >::type time_length(time_lengthSEXP);
+    Rcpp::traits::input_parameter< double >::type BXadd(BXaddSEXP);
+    Rcpp::traits::input_parameter< double >::type AX(AXSEXP);
+    Rcpp::traits::input_parameter< double >::type CX(CXSEXP);
+    Rcpp::traits::input_parameter< double >::type EX(EXSEXP);
+    Rcpp::traits::input_parameter< double >::type OPDVadd(OPDVaddSEXP);
+    Rcpp::traits::input_parameter< double >::type BMAXmult(BMAXmultSEXP);
+    Rcpp::traits::input_parameter< double >::type V_MAX(V_MAXSEXP);
+    Rcpp::traits::input_parameter< double >::type FaktorV(FaktorVSEXP);
+    Rcpp::traits::input_parameter< double >::type BMIN(BMINSEXP);
+    Rcpp::traits::input_parameter< double >::type BNULL(BNULLSEXP);
+    Rcpp::traits::input_parameter< double >::type resolution(resolutionSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type vn(vnSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type vn1(vn1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type sn(snSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type xn(xnSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type xn1(xn1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type deltav(deltavSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type bn1(bn1SEXP);
+    rcpp_result_gen = Rcpp::wrap(for_loop_wiedemann(D_MAX, time_length, BXadd, AX, CX, EX, OPDVadd, BMAXmult, V_MAX, FaktorV, BMIN, BNULL, resolution, vn, vn1, sn, xn, xn1, deltav, bn1));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_carfollowingmodels_for_loop_idm", (DL_FUNC) &_carfollowingmodels_for_loop_idm, 19},
     {"_carfollowingmodels_for_loop_gipps", (DL_FUNC) &_carfollowingmodels_for_loop_gipps, 19},
+    {"_carfollowingmodels_for_loop_wiedemann", (DL_FUNC) &_carfollowingmodels_for_loop_wiedemann, 20},
     {NULL, NULL, 0}
 };
 

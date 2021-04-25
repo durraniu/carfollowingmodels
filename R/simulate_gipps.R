@@ -67,29 +67,28 @@
 #' simulate_gipps(
 #'
 #'############## Simulation Parameters #######################
-#'resolution=0.1, # Duration of a time frame. Typical values are 0.1, 0.5, 1.0 s. #'Double. Must match with the resolution of the observed lead vehicle data dfn1
-#'N=5, # Number of Following Vehicles in the same lane (platoon). Integer.
+#'resolution=0.1,
+#'N=5,
 #'
 #'
 #'############### Lead Vehicle Data #########################
-#'dfn1=ldf, # Name (unquoted) of the dataframe that contains lead vehicle data.
-#'xn1="xn1_complete", # Name of the column in dfn1 that contains lead vehicle #'position. Character.
-#'vn1="vn1_complete", # Name of the column in dfn1 that contains lead vehicle speed. #'Character.
-#'
+#'dfn1=ldf,
+#'xn1="xn1_complete",
+#'vn1="vn1_complete",
 #'
 #'
 #'############### Following Vehicle Data ####################
-#'xn_first=list(85, 70, 55, 40, 25), # First value of vehicle position of each of the #'following vehicles. A list of doubles with size equal to N.
-#'vn_first=list(12, 12, 12, 12, 12), # First value of vehicle speed of each of the #'following vehicles. A list of doubles with size equal to N.
-#'ln=list(6.5, 6.5, 6.5, 6.5, 6.5), # Effective size of each of the lead vehicles i.e#'. vehicle length plus margin of safety. A list of doubles with size equal to N.
+#'xn_first=list(85, 70, 55, 40, 25),
+#'vn_first=list(12, 12, 12, 12, 12),
+#'ln=list(6.5, 6.5, 6.5, 6.5, 6.5),
 #'
 #'
 #'############### Model Parameters ##########################
-#'an=2, # Maximum acceleration which the driver wishes to undertake m/s2. Double.
-#'Vn=14.4, # Desired speed/speed at which driver  wishes to travel m/s. Double.
-#'tau=0.1, # Reaction Time s. Double.
-#'bn=-1.5, # Most severe braking that the driver wishes to undertake m/s2. Double.
-#'bcap=-2 # An estimate of lead vehicle deceleration m/s2. Double.
+#'an=2,
+#'Vn=14.4,
+#'tau=0.1,
+#'bn=-1.5,
+#'bcap=-2
 #')
 simulate_gipps <- function(
 
@@ -237,8 +236,8 @@ simulate_gipps <- function(
 
     list_of_N_veh[[n]] <- result_dfn
 
-    xn1 <- xn
-    vn1 <- vn
+    xn1 <- result_dfn$xn
+    vn1 <- result_dfn$vn
 
 
   }

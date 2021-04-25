@@ -259,8 +259,8 @@ simulate_idm <- function(
 
     list_of_N_veh[[n]] <- result_dfn
 
-    xn1 <- xn
-    vn1 <- vn
+    xn1 <- result_dfn$xn
+    vn1 <- result_dfn$vn
 
 
   }

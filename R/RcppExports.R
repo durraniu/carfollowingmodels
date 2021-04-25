@@ -9,3 +9,7 @@ for_loop_gipps <- function(resolution, n, time_length, tau, an, bn, Vn, bcap, ln
     .Call(`_carfollowingmodels_for_loop_gipps`, resolution, n, time_length, tau, an, bn, Vn, bcap, ln1, Time, vn_ff, vn_cf, vn, vn1, sn, xn, xn1, deltav, bn_v)
 }
 
+for_loop_wiedemann <- function(D_MAX, time_length, BXadd, AX, CX, EX, OPDVadd, BMAXmult, V_MAX, FaktorV, BMIN, BNULL, resolution, vn, vn1, sn, xn, xn1, deltav, bn1) {
+    .Call(`_carfollowingmodels_for_loop_wiedemann`, D_MAX, time_length, BXadd, AX, CX, EX, OPDVadd, BMAXmult, V_MAX, FaktorV, BMIN, BNULL, resolution, vn, vn1, sn, xn, xn1, deltav, bn1)
+}
+
