@@ -236,8 +236,8 @@ simulate_wiedemann74_driver <- function(
                                      bn1)
 
     ################## Result in a dataframe ###################################
-
-    result_dfn <- cbind(n, Time, result_dfn, ln1)
+    fvn <- n
+    result_dfn <- cbind(fvn, Time, result_dfn, ln1)
 
     list_of_N_veh[[n]] <- result_dfn
 

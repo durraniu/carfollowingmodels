@@ -191,6 +191,48 @@ ggplot(data = results_gipps) +
   theme(legend.title = element_blank())
 ```
 
+
+## Wiedemann 74 Model (individual driver)
+
+```{r}
+results_w74d <- simulate_wiedemann74_driver(
+ resolution=0.1,
+ N=5,
+ dfn1=ldf,
+ xn1="xn1_complete",
+ vn1="vn1_complete",
+ bn1="bn1_complete",
+ xn_first=list(85, 70, 55, 40, 25),
+ vn_first=list(12, 12, 12, 12, 12),
+ ln=list(5, 5, 5, 5, 5),
+ D_MAX=150,
+ V_MAX=44,
+ V_DESIRED=14.4,
+ FAKTORVmult=0.001,
+ BMAXmult=0.08,
+ BNULLmult=0.25,
+ BMIN=-5,
+ CX=50,
+ AXadd=2,
+ BXadd=2,
+ EXadd=2,
+ OPDVadd=1.5
+)
+
+
+head(results_w74d)
+
+
+## Speed
+ggplot(data = results_w74d) +
+  geom_line(aes(x = Time, y = vn, color = as.factor(fvn), group=fvn)) +
+  geom_line(data = subset(results_w74d, fvn==1),
+            aes(x = Time, y = vn1, color = "LV Speed")) +
+  theme(legend.title = element_blank())
+```
+
+
+
 ### Compare Models
 
 Following shows the speed of first following vehicle as predicted by different models:
