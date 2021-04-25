@@ -13,7 +13,7 @@
 #' @param an Maximum acceleration which the driver wishes to undertake m/s2. Double.
 #' @param Vn Desired speed/speed at which driver  wishes to travel m/s. Double.
 #' @param tau Reaction Time s. Double.
-#' @param bn Most severe braking that the driver wishes to undertake m/s2. Double and Negative.
+#' @param bn_const Most severe braking that the driver wishes to undertake m/s2. Double and Negative.
 #' @param bcap An estimate of lead vehicle deceleration m/s2. Double and Negative.
 #'
 #' @return A dataframe with lead and following vehicle(s) trajectories
@@ -87,7 +87,7 @@
 #'an=2,
 #'Vn=14.4,
 #'tau=0.1,
-#'bn=-1.5,
+#'bn_const=-1.5,
 #'bcap=-2
 #')
 simulate_gipps <- function(
@@ -114,7 +114,7 @@ simulate_gipps <- function(
   an, # Maximum acceleration which the driver wishes to undertake m/s2. Double.
   Vn, # Desired speed/speed at which driver  wishes to travel m/s. Double.
   tau, # Reaction Time s. Double.
-  bn, # Most severe braking that the driver wishes to undertake m/s2. Double and Negative.
+  bn_const, # Most severe braking that the driver wishes to undertake m/s2. Double and Negative.
   bcap # An estimate of lead vehicle deceleration m/s2. Double and Negative.
 
 
@@ -183,7 +183,7 @@ simulate_gipps <- function(
     deltav <- rep(NA_real_, time_length)
 
     # acceleration rate
-    bn_v <- rep(NA_real_, time_length)
+    bn <- rep(NA_real_, time_length)
 
 
 
@@ -212,7 +212,7 @@ simulate_gipps <- function(
                                  time_length,
                                  tau,
                                  an,
-                                 bn,
+                                 bn_const,
                                  Vn,
                                  bcap,
                                  ln1,
@@ -226,7 +226,7 @@ simulate_gipps <- function(
                                  xn,
                                  xn1,
                                  deltav,
-                                 bn_v
+                                 bn
     )
 
     ################## Result in a dataframe ###################################

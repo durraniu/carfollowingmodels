@@ -40,8 +40,11 @@ time_length <- length(Time)
 ## Lead vehicle
 vn1_first <- 13.9 ## first speed m/s
 xn1_first <- 100 ## position of lead vehicle front center m
-bn1_complete <- c(rep(0, 29500),
-                 rep(-5, time_length - 29500))
+bn1_complete <- c(rep(0, 15000),
+                  rep(0.05, 2000),
+                  rep(-1, 3000),
+                  rep(0, 8000),
+                  rep(-5, 2001))
 
 
 
@@ -205,20 +208,13 @@ bcap=-2
 
 
 head(results_gipps)
-#>   fvn Time    xn1  vn1 ln1 bcap   bn      bn_v       xn       vn       sn
-#> 1   1  0.0 100.00 13.9 6.5   -2 -1.5 0.7815591 85.00000 12.00000  8.50000
-#> 2   1  0.1 101.39 13.9 6.5   -2 -1.5 0.7585004 86.20391 12.07816 15.18609
-#> 3   1  0.2 102.78 13.9 6.5   -2 -1.5 0.7359608 87.41552 12.15401 15.36448
-#> 4   1  0.3 104.17 13.9 6.5   -2 -1.5 0.7139400 88.63460 12.22760 15.53540
-#> 5   1  0.4 105.56 13.9 6.5   -2 -1.5 0.6924367 89.86093 12.29900 15.69907
-#> 6   1  0.5 106.95 13.9 6.5   -2 -1.5 0.6714485 91.09429 12.36824 15.85571
-#>      deltav
-#> 1 -1.900000
-#> 2 -1.821844
-#> 3 -1.745994
-#> 4 -1.672398
-#> 5 -1.601004
-#> 6 -1.531760
+#>   fvn Time    xn1  vn1 ln1        bn       xn       vn       sn    deltav
+#> 1   1  0.0 100.00 13.9 6.5 0.7815591 85.00000 12.00000  8.50000 -1.900000
+#> 2   1  0.1 101.39 13.9 6.5 0.7585004 86.20391 12.07816 15.18609 -1.821844
+#> 3   1  0.2 102.78 13.9 6.5 0.7359608 87.41552 12.15401 15.36448 -1.745994
+#> 4   1  0.3 104.17 13.9 6.5 0.7139400 88.63460 12.22760 15.53540 -1.672398
+#> 5   1  0.4 105.56 13.9 6.5 0.6924367 89.86093 12.29900 15.69907 -1.601004
+#> 6   1  0.5 106.95 13.9 6.5 0.6714485 91.09429 12.36824 15.85571 -1.531760
 
 
 ## Speed
@@ -227,7 +223,7 @@ ggplot(data = results_gipps) +
   geom_line(data = subset(results_gipps, fvn==1),
             aes(x = Time, y = vn1, color = "LV Speed")) +
   theme(legend.title = element_blank())
-#> Warning: Removed 2180 row(s) containing missing values (geom_path).
+#> Warning: Removed 60560 row(s) containing missing values (geom_path).
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
@@ -317,9 +313,25 @@ ggplot() +
             aes(x = Time, y = vn, color = "IDM Speed")) +
   geom_line(data = results_w74d_fv1 ,
             aes(x = Time, y = vn, color = "W74 Speed")) +
-  geom_line(data = results_idm_fv1 ,
-            aes(x = Time, y = vn1, color = "LV Speed"), linetype = "longdash")
-#> Warning: Removed 434 row(s) containing missing values (geom_path).
+  geom_line(data = ldf ,
+            aes(x = Time, y = vn1_complete, color = "LV Speed"), linetype = "longdash") +
+  ggtitle("Speed")
+#> Warning: Removed 12110 row(s) containing missing values (geom_path).
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+``` r
+
+ggplot() +
+  geom_line(data = results_gipps_fv1 ,
+            aes(x = Time, y = sn, color = "Gipps Speed")) +
+  geom_line(data = results_idm_fv1 ,
+            aes(x = Time, y = sn+ln1, color = "IDM Speed")) +
+  geom_line(data = results_w74d_fv1 ,
+            aes(x = Time, y = sn, color = "W74 Speed")) +
+  ggtitle("Spacing including length of lead vehicle")
+#> Warning: Removed 12111 row(s) containing missing values (geom_path).
+```
+
+<img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" />

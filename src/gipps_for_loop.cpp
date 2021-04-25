@@ -10,7 +10,7 @@ DataFrame for_loop_gipps(double resolution,
                          int time_length,
                          double tau,
                          double an,
-                         double bn,
+                         double bn_const,
                          double Vn,
                          double bcap,
                          double ln1,
@@ -24,7 +24,7 @@ DataFrame for_loop_gipps(double resolution,
                          NumericVector xn,
                          NumericVector xn1,
                          NumericVector deltav,
-                         NumericVector bn_v
+                         NumericVector bn
 ) {
 
 
@@ -36,8 +36,8 @@ DataFrame for_loop_gipps(double resolution,
 
 
     // ## car following
-    vn_cf[t] = (bn * tau) + sqrt(
-      (pow(bn,2) * pow(tau,2)) - (bn * (2 * (xn1[t-1] - ln1 - xn[t-1]) - (vn[t-1] * tau) - (pow((vn1[t-1]),2)/bcap)))
+    vn_cf[t] = (bn_const * tau) + sqrt(
+      (pow(bn_const,2) * pow(tau,2)) - (bn_const * (2 * (xn1[t-1] - ln1 - xn[t-1]) - (vn[t-1] * tau) - (pow((vn1[t-1]),2)/bcap)))
     );
 
 
@@ -69,12 +69,12 @@ DataFrame for_loop_gipps(double resolution,
 
 
     // ## acceleration
-    bn_v[t-1] = (vn[t] - vn[t-1])/(resolution);
+    bn[t-1] = (vn[t] - vn[t-1])/(resolution);
 
 
 
     // ## position
-    xn[t] = xn[t-1] + (vn[t-1] * resolution) + (0.5 * bn_v[t-1] * pow(resolution, 2));
+    xn[t] = xn[t-1] + (vn[t-1] * resolution) + (0.5 * bn[t-1] * pow(resolution, 2));
 
 
     // # spacing
@@ -92,9 +92,7 @@ DataFrame for_loop_gipps(double resolution,
                                    Named("xn1") = xn1,
                                    Named("vn1") = vn1,
                                    Named("ln1") = ln1,
-                                   Named("bcap") = bcap,
                                    Named("bn") = bn,
-                                   Named("bn_v") = bn_v,
                                    Named("xn") = xn,
                                    Named("vn") = vn,
                                    Named("sn") = sn,

@@ -16,7 +16,7 @@ simulate_gipps(
   an,
   Vn,
   tau,
-  bn,
+  bn_const,
   bcap
 )
 }
@@ -43,7 +43,7 @@ simulate_gipps(
 
 \item{tau}{Reaction Time s. Double.}
 
-\item{bn}{Most severe braking that the driver wishes to undertake m/s2. Double and Negative.}
+\item{bn_const}{Most severe braking that the driver wishes to undertake m/s2. Double and Negative.}
 
 \item{bcap}{An estimate of lead vehicle deceleration m/s2. Double and Negative.}
 }
@@ -121,7 +121,7 @@ ln=list(6.5, 6.5, 6.5, 6.5, 6.5),
 an=2,
 Vn=14.4,
 tau=0.1,
-bn=-1.5,
+bn_const=-1.5,
 bcap=-2
 )
 }

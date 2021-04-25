@@ -46,8 +46,11 @@ time_length <- length(Time)
 ## Lead vehicle
 vn1_first <- 13.9 ## first speed m/s
 xn1_first <- 100 ## position of lead vehicle front center m
-bn1_complete <- c(rep(0, 29500),
-                 rep(-5, time_length - 29500))
+bn1_complete <- c(rep(0, 15000),
+                  rep(0.05, 2000),
+                  rep(-1, 3000),
+                  rep(0, 8000),
+                  rep(-5, 2001))
 
 
 
@@ -254,7 +257,18 @@ ggplot() +
             aes(x = Time, y = vn, color = "IDM Speed")) +
   geom_line(data = results_w74d_fv1 ,
             aes(x = Time, y = vn, color = "W74 Speed")) +
+  geom_line(data = ldf ,
+            aes(x = Time, y = vn1_complete, color = "LV Speed"), linetype = "longdash") +
+  ggtitle("Speed")
+
+
+ggplot() +
+  geom_line(data = results_gipps_fv1 ,
+            aes(x = Time, y = sn, color = "Gipps Speed")) +
   geom_line(data = results_idm_fv1 ,
-            aes(x = Time, y = vn1, color = "LV Speed"), linetype = "longdash")
+            aes(x = Time, y = sn+ln1, color = "IDM Speed")) +
+  geom_line(data = results_w74d_fv1 ,
+            aes(x = Time, y = sn, color = "W74 Speed")) +
+  ggtitle("Spacing including length of lead vehicle")
 ```
 
