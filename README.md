@@ -353,7 +353,6 @@ ggplot() +
 Gipps, P G. 1981. “<span class="nocase">A behavioural car following
 model for computer simulation</span>.” *Transportation Research Part B*
 15: 101–15.
-<http://turing.iimas.unam.mx/sos/sites/default/files/Gipps_ABehaviouralCarFollowingModel.pdf>.
 
 </div>
 
