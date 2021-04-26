@@ -2,12 +2,12 @@ Package: carfollowingmodels
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Umair",
+           family = "Durrani",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "durraniu@uwindsor.ca",
+           comment = c(ORCID = "0000-0002-7235-1155"))
+Description: Use Car-Following Models in R
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
