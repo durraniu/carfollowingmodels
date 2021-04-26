@@ -25,6 +25,14 @@ To use any car-following model, you need to provide the lead vehicle
 data, initial position, speed and/or acceleration of following
 vehicle(s), and model parameters.
 
+The models used in this package are cited below:
+
+| Model                    | Citation                                                     |
+|--------------------------|--------------------------------------------------------------|
+| Intelligent Driver Model | Treiber and Arne Kesting (2013)                              |
+| Gipps Model              | Gipps (1981)                                                 |
+| Wiedemann 74 Model       | Wiedemann and Reiter (1992); Higgs, Abbas, and Medina (2011) |
+
 Following shows an example with 5 following vehicles. The lead vehicle
 is moving at 13.9 m/s at the reference position of 100 m.
 
@@ -335,3 +343,44 @@ ggplot() +
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" />
+
+# References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-Gipps1981" class="csl-entry">
+
+Gipps, P G. 1981. “<span class="nocase">A behavioural car following
+model for computer simulation</span>.” *Transportation Research Part B*
+15: 101–15.
+<http://turing.iimas.unam.mx/sos/sites/default/files/Gipps_ABehaviouralCarFollowingModel.pdf>.
+
+</div>
+
+<div id="ref-Higgs2011" class="csl-entry">
+
+Higgs, Bryan, MM Abbas, and Alejandra Medina. 2011. “<span
+class="nocase">Analysis of the Wiedemann Car Following Model over
+Different Speeds using Naturalistic Data</span>.” *3rd International
+Conference on Road Safety and Simulation*, 1–22.
+
+</div>
+
+<div id="ref-Treiber2013" class="csl-entry">
+
+Treiber, Martin, and Arne Kesting. 2013. “<span class="nocase">Traffic
+flow dynamics</span>.” *Traffic Flow Dynamics: Data, Models and
+Simulation, Springer-Verlag Berlin Heidelberg*.
+
+</div>
+
+<div id="ref-Wiedemann1992" class="csl-entry">
+
+Wiedemann, Reiter, and U Reiter. 1992. “<span class="nocase">Microscopic
+traffic simulation: the simulation system MISSION, background and actual
+state</span>.” *Project ICARUS (V1052) Final Report. Brussels, CEC* 2:
+1–53.
+
+</div>
+
+</div>

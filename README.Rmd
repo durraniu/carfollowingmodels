@@ -1,5 +1,6 @@
 ---
 output: github_document
+bibliography: library.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -16,6 +17,7 @@ knitr::opts_chunk$set(
 # carfollowingmodels
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of `carfollowingmodels` is to make several car following models available in R for numerical simulation.
@@ -28,9 +30,18 @@ The goal of `carfollowingmodels` is to make several car following models availab
 # install.packages("devtools")
 devtools::install_github("durraniu/carfollowingmodels")
 ```
+
 ## Example
 
-To use any car-following model, you need to provide the lead vehicle data, initial position, speed and/or acceleration of following vehicle(s), and model parameters.  
+To use any car-following model, you need to provide the lead vehicle data, initial position, speed and/or acceleration of following vehicle(s), and model parameters.
+
+The models used in this package are cited below:
+
+| Model                    | Citation                     |
+|--------------------------|------------------------------|
+| Intelligent Driver Model | @Treiber2013                |
+| Gipps Model              | @Gipps1981                  |
+| Wiedemann 74 Model       | @Wiedemann1992; @Higgs2011 |
 
 Following shows an example with 5 following vehicles. The lead vehicle is moving at 13.9 m/s at the reference position of 100 m.
 
@@ -81,7 +92,6 @@ for (t in 2:time_length) {
 ldf <- data.frame(Time, bn1_complete, xn1_complete, vn1_complete)
 ```
 
-
 ## Intelligent Driver Model (IDM)
 
 To predict the trajectories of the 5 following vehicles, you can use any car-following model available in this package. For example, the `simulate_idm()` function uses the Intelligent Driver Model as shown below. For more details on input arguments, type `?simulate_idm`in the console.
@@ -114,7 +124,6 @@ b=1.5
 
 head(results_idm)
 ```
-
 
 Now you can plot the results:
 
@@ -152,7 +161,6 @@ ggplot(data = results_idm) +
             aes(x = Time, y = vn1, color = "LV Speed")) +
   theme(legend.title = element_blank())
 ```
-
 
 ## Gipps Model
 
@@ -194,7 +202,6 @@ ggplot(data = results_gipps) +
   theme(legend.title = element_blank())
 ```
 
-
 ## Wiedemann 74 Model (individual driver)
 
 ```{r}
@@ -234,8 +241,6 @@ ggplot(data = results_w74d) +
   theme(legend.title = element_blank())
 ```
 
-
-
 ### Compare Models
 
 Comparing models is difficult as each model has at least a few unique parameters of its own. Nevertheless, following shows the speed of the fifth following vehicle as predicted by different models:
@@ -272,3 +277,4 @@ ggplot() +
   ggtitle("Spacing including length of lead vehicle")
 ```
 
+# References
