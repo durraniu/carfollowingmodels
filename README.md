@@ -325,11 +325,11 @@ ggplot() +
 
 ggplot() +
   geom_line(data = results_gipps_fv1 ,
-            aes(x = Time, y = sn, color = "Gipps Speed")) +
+            aes(x = Time, y = sn, color = "Gipps")) +
   geom_line(data = results_idm_fv1 ,
-            aes(x = Time, y = sn+ln1, color = "IDM Speed")) +
+            aes(x = Time, y = sn+ln1, color = "IDM")) +
   geom_line(data = results_w74d_fv1 ,
-            aes(x = Time, y = sn, color = "W74 Speed")) +
+            aes(x = Time, y = sn, color = "W74")) +
   ggtitle("Spacing including length of lead vehicle")
 #> Warning: Removed 12111 row(s) containing missing values (geom_path).
 ```
