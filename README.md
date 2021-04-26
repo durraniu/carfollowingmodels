@@ -338,7 +338,7 @@ ggplot() +
             aes(x = Time, y = sn+ln1, color = "IDM")) +
   geom_line(data = results_w74d_fv1 ,
             aes(x = Time, y = sn, color = "W74")) +
-  ggtitle("Spacing including length of lead vehicle")
+  ggtitle("Spacing (including length of lead vehicle)")
 #> Warning: Removed 12111 row(s) containing missing values (geom_path).
 ```
 
