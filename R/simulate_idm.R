@@ -204,7 +204,7 @@ simulate_idm <- function(
     # )
 
 
-    sn[1] <- abs(xn1[1] - xn_first[[n]]) - ln1
+    sn[1] <- xn1[1] - xn_first[[n]] - ln1
 
 
 

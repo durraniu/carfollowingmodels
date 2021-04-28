@@ -205,7 +205,7 @@ simulate_wiedemann74_driver <- function(
     xn[1] <- xn_first[[n]]
 
     # spacing
-    sn[1] <- abs(xn1[1] - xn_first[[n]])
+    sn[1] <- xn1[1] - xn_first[[n]]
 
     # speed difference
     deltav[1] <- vn_first[[n]] - vn1[1]

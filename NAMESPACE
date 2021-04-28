@@ -3,5 +3,6 @@
 export(simulate_gipps)
 export(simulate_idm)
 export(simulate_wiedemann74_driver)
+export(sse)
 importFrom(Rcpp,sourceCpp)
 useDynLib(carfollowingmodels, .registration = TRUE)

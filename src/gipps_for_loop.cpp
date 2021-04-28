@@ -78,7 +78,7 @@ DataFrame for_loop_gipps(double resolution,
 
 
     // # spacing
-    sn[t] = abs(xn1[t] - xn[t]);
+    sn[t] = xn1[t] - xn[t];
 
 
     // # speed difference

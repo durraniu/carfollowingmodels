@@ -86,7 +86,7 @@ DataFrame for_loop_idm(double resolution,
     xn[t+1] = xn[t] + (vn[t] * resolution) + (0.5 * v_dot[t] * pow(resolution,2));
 
     // # Bumper to bumper spacing
-    sn[t+1] = abs(xn1[t+1] - xn[t+1]) - ln1;
+    sn[t+1] = xn1[t+1] - xn[t+1] - ln1;
 
     // # speed difference
     deltav[t+1] = vn[t+1] - vn1[t+1];

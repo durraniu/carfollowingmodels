@@ -141,9 +141,12 @@ library(tidyverse)
 #> Warning: package 'tidyverse' was built under R version 4.0.4
 #> -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
 #> v ggplot2 3.3.3     v purrr   0.3.4
-#> v tibble  3.0.6     v dplyr   1.0.4
-#> v tidyr   1.1.2     v stringr 1.4.0
+#> v tibble  3.1.1     v dplyr   1.0.5
+#> v tidyr   1.1.3     v stringr 1.4.0
 #> v readr   1.4.0     v forcats 0.5.1
+#> Warning: package 'tibble' was built under R version 4.0.5
+#> Warning: package 'tidyr' was built under R version 4.0.5
+#> Warning: package 'dplyr' was built under R version 4.0.5
 #> -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
@@ -217,7 +220,7 @@ bcap=-2
 
 head(results_gipps)
 #>   fvn Time    xn1  vn1 ln1        bn       xn       vn       sn    deltav
-#> 1   1  0.0 100.00 13.9 6.5 0.7815591 85.00000 12.00000  8.50000 -1.900000
+#> 1   1  0.0 100.00 13.9 6.5 0.7815591 85.00000 12.00000 15.00000 -1.900000
 #> 2   1  0.1 101.39 13.9 6.5 0.7585004 86.20391 12.07816 15.18609 -1.821844
 #> 3   1  0.2 102.78 13.9 6.5 0.7359608 87.41552 12.15401 15.36448 -1.745994
 #> 4   1  0.3 104.17 13.9 6.5 0.7139400 88.63460 12.22760 15.53540 -1.672398

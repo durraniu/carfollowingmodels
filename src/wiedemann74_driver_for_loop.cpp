@@ -187,7 +187,7 @@ DataFrame for_loop_wiedemann(double D_MAX,
 
     xn[t+1] = xn[t] + (vn[t] * resolution) + (0.5 * bn[t] * pow(resolution, 2));
 
-    sn[t+1] = abs(xn1[t+1] - xn[t+1]);
+    sn[t+1] = xn1[t+1] - xn[t+1];
 
     deltav[t+1] = vn[t+1] - vn1[t+1];
 
