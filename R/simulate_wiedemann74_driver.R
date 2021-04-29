@@ -239,6 +239,12 @@ simulate_wiedemann74_driver <- function(
     fvn <- n
     result_dfn <- cbind(fvn, Time, result_dfn, ln1)
 
+    col_order <- c("fvn", "Time", "xn1", "vn1", "ln1", "bn", "xn", "vn", "sn", "deltav",
+                   "AX", "BX", "ABX", "CX", "SDX", "SDV", "CLDV", "OPDV", "BMAX",
+                   "B_App", "B_Emg", "BNULL", "cf_state_sim")
+
+    result_dfn <- result_dfn[, col_order]
+
     list_of_N_veh[[n]] <- result_dfn
 
     xn1 <- result_dfn$xn

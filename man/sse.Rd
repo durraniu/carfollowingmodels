@@ -115,11 +115,9 @@ pred_data <- simulate_wiedemann74_driver(
 
 pred_data <- pred_data[1:nrow(obs_data), ]
 
-# The variable sn in obs_data is the front-bumper-to-rear-bumper spacing, but in pred_data it is front-bumper-to#'-front-bumper spacing. So, we subtract the length to get the same variable:
-pred_data$frsn <- pred_data$sn - pred_data$ln1
 
 
 # Now we can estimate the sum of squared errors:
-sse(pred_data$frsn, obs_data$sn, type = "mix")
+sse(pred_data$sn, obs_data$sn, type = "mix")
 sse(pred_data$vn, obs_data$vn, type = "abs")
 }

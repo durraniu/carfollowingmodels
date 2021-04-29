@@ -39,9 +39,9 @@ The models used in this package are cited below:
 
 | Model                    | Citation                     |
 |--------------------------|------------------------------|
-| Intelligent Driver Model | @Treiber2013                |
-| Gipps Model              | @Gipps1981                  |
-| Wiedemann 74 Model       | @Wiedemann1992; @Higgs2011 |
+| Intelligent Driver Model | \@Treiber2013                |
+| Gipps Model              | \@Gipps1981                  |
+| Wiedemann 74 Model       | \@Wiedemann1992; \@Higgs2011 |
 
 Following shows an example with 5 following vehicles. The lead vehicle is moving at 13.9 m/s at the reference position of 100 m.
 
@@ -240,6 +240,35 @@ ggplot(data = results_w74d) +
             aes(x = Time, y = vn1, color = "LV Speed")) +
   theme(legend.title = element_blank())
 ```
+
+### Outputs
+
+| Variable     | Description                                                                                                                                   | Model       |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| fvn          | Following vehicle number                                                                                                                      | Common      |
+| Time         | Time in seconds                                                                                                                               | Common      |
+| xn1          | Position of front center of the lead vehicle                                                                                                  | Common      |
+| vn1          | Speed of the lead vehicle                                                                                                                     | Common      |
+| ln1          | Length of the lead vehicle                                                                                                                    | Common      |
+| bn           | Acceleration (positive and negative) of the following vehicle                                                                                 | Common      |
+| xn           | Position of front center of the following vehicle                                                                                             | Common      |
+| vn           | Speed of the following vehicle                                                                                                                | Common      |
+| sn           | Spacing between the front bumper of the following vehicle and the front bumper of the lead vehicle (including the length of the lead vehicle) | Common      |
+| deltav       | Speed difference (following vehicle speed - lead vehicle speed)                                                                               | Common      |
+| sn_star      | Desired spacing                                                                                                                               | IDM         |
+| AX           | Standstill spacing                                                                                                                            | Wiedemann74 |
+| BX           | Calibration Parameter                                                                                                                         | Wiedemann74 |
+| ABX          | Minimum following distance                                                                                                                    | Wiedemann74 |
+| CX           | Calibration Parameter                                                                                                                         | Wiedemann74 |
+| SDX          | Minimum following distance + drift due to unequal speed difference in opening and closing                                                     | Wiedemann74 |
+| SDV          | Speed difference when driver perceives approaching a slow lead vehicle                                                                        | Wiedemann74 |
+| CLDV         | Speed difference when driver perceives closing in to lead vehicle                                                                             | Wiedemann74 |
+| OPDV         | Speed difference when driver perceives losing lead vehicle                                                                                    | Wiedemann74 |
+| BMAX         | Acceleration in Free-driving                                                                                                                  | Wiedemann74 |
+| B_App        | Deceleration in Approaching                                                                                                                   | Wiedemann74 |
+| B_Emg        | Deceleration in Emergency-braking                                                                                                             | Wiedemann74 |
+| BNULL        | Acceleration (positive and negative) in Following and at desired speed in Free-driving                                                        | Wiedemann74 |
+| cf_state_sim | Driving state (Free-driving, Approaching, Following, Emergency-braking)                                                                       | Wiedemann74 |
 
 ### Compare Models
 

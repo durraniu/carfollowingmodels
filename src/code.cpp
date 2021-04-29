@@ -21,10 +21,11 @@ DataFrame for_loop_idm(double resolution,
                        NumericVector vn1,
                        NumericVector sn_star,
                        NumericVector sn,
+                       NumericVector frsn,
                        NumericVector xn,
                        NumericVector xn1,
                        NumericVector deltav,
-                       NumericVector v_dot
+                       NumericVector bn
 ) {
 
 
@@ -46,28 +47,28 @@ DataFrame for_loop_idm(double resolution,
     // # acceleration rate
     if (NumericVector::is_na(sn_star[t])) {
 
-      v_dot[t] = a * (1 - (pow((vn[t] / v_0), small_delta)));
+      bn[t] = a * (1 - (pow((vn[t] / v_0), small_delta)));
 
     } else {
 
-      v_dot[t] = a * (1 - (pow((vn[t] / v_0), small_delta)) - (pow((sn_star[t] / sn[t]), 2)));
+      bn[t] = a * (1 - (pow((vn[t] / v_0), small_delta)) - (pow((sn_star[t] / frsn[t]), 2)));
 
     }
 
 
 
-    if (v_dot[t] < -b){
+    if (bn[t] < -b){
 
-      v_dot[t] = -b;
+      bn[t] = -b;
 
     } else {
 
-      v_dot[t] = v_dot[t];
+      bn[t] = bn[t];
 
     }
 
     // # speed
-    vn[t+1] = vn[t] + (v_dot[t] * resolution);
+    vn[t+1] = vn[t] + (bn[t] * resolution);
 
     // ### if the speed is negative, make it zero
 
@@ -83,10 +84,12 @@ DataFrame for_loop_idm(double resolution,
 
 
     // # position
-    xn[t+1] = xn[t] + (vn[t] * resolution) + (0.5 * v_dot[t] * pow(resolution,2));
+    xn[t+1] = xn[t] + (vn[t] * resolution) + (0.5 * bn[t] * pow(resolution,2));
 
-    // # Bumper to bumper spacing
-    sn[t+1] = xn1[t+1] - xn[t+1] - ln1;
+    // # Spacing and Bumper to bumper spacing
+    sn[t+1] = xn1[t+1] - xn[t+1];
+
+    frsn[t+1] = sn[t+1] - ln1;
 
     // # speed difference
     deltav[t+1] = vn[t+1] - vn1[t+1];
@@ -99,12 +102,12 @@ DataFrame for_loop_idm(double resolution,
                                    Named("xn1") = xn1,
                                    Named("vn1") = vn1,
                                    Named("ln1") = ln1,
-                                   Named("sn_star") = sn_star,
-                                   Named("v_dot") = v_dot,
+                                   Named("bn") = bn,
                                    Named("xn") = xn,
                                    Named("vn") = vn,
                                    Named("sn") = sn,
-                                   Named("deltav") = deltav);
+                                   Named("deltav") = deltav,
+                                   Named("sn_star") = sn_star);
 
   return df;
 

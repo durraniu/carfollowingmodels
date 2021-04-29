@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // for_loop_idm
-DataFrame for_loop_idm(double resolution, int n, int time_length, double s_0, double Tg, double a, double b, double v_0, double small_delta, double ln1, NumericVector Time, NumericVector vn, NumericVector vn1, NumericVector sn_star, NumericVector sn, NumericVector xn, NumericVector xn1, NumericVector deltav, NumericVector v_dot);
-RcppExport SEXP _carfollowingmodels_for_loop_idm(SEXP resolutionSEXP, SEXP nSEXP, SEXP time_lengthSEXP, SEXP s_0SEXP, SEXP TgSEXP, SEXP aSEXP, SEXP bSEXP, SEXP v_0SEXP, SEXP small_deltaSEXP, SEXP ln1SEXP, SEXP TimeSEXP, SEXP vnSEXP, SEXP vn1SEXP, SEXP sn_starSEXP, SEXP snSEXP, SEXP xnSEXP, SEXP xn1SEXP, SEXP deltavSEXP, SEXP v_dotSEXP) {
+DataFrame for_loop_idm(double resolution, int n, int time_length, double s_0, double Tg, double a, double b, double v_0, double small_delta, double ln1, NumericVector Time, NumericVector vn, NumericVector vn1, NumericVector sn_star, NumericVector sn, NumericVector frsn, NumericVector xn, NumericVector xn1, NumericVector deltav, NumericVector bn);
+RcppExport SEXP _carfollowingmodels_for_loop_idm(SEXP resolutionSEXP, SEXP nSEXP, SEXP time_lengthSEXP, SEXP s_0SEXP, SEXP TgSEXP, SEXP aSEXP, SEXP bSEXP, SEXP v_0SEXP, SEXP small_deltaSEXP, SEXP ln1SEXP, SEXP TimeSEXP, SEXP vnSEXP, SEXP vn1SEXP, SEXP sn_starSEXP, SEXP snSEXP, SEXP frsnSEXP, SEXP xnSEXP, SEXP xn1SEXP, SEXP deltavSEXP, SEXP bnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -26,11 +26,12 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type vn1(vn1SEXP);
     Rcpp::traits::input_parameter< NumericVector >::type sn_star(sn_starSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type sn(snSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type frsn(frsnSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type xn(xnSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type xn1(xn1SEXP);
     Rcpp::traits::input_parameter< NumericVector >::type deltav(deltavSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type v_dot(v_dotSEXP);
-    rcpp_result_gen = Rcpp::wrap(for_loop_idm(resolution, n, time_length, s_0, Tg, a, b, v_0, small_delta, ln1, Time, vn, vn1, sn_star, sn, xn, xn1, deltav, v_dot));
+    Rcpp::traits::input_parameter< NumericVector >::type bn(bnSEXP);
+    rcpp_result_gen = Rcpp::wrap(for_loop_idm(resolution, n, time_length, s_0, Tg, a, b, v_0, small_delta, ln1, Time, vn, vn1, sn_star, sn, frsn, xn, xn1, deltav, bn));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -95,7 +96,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_carfollowingmodels_for_loop_idm", (DL_FUNC) &_carfollowingmodels_for_loop_idm, 19},
+    {"_carfollowingmodels_for_loop_idm", (DL_FUNC) &_carfollowingmodels_for_loop_idm, 20},
     {"_carfollowingmodels_for_loop_gipps", (DL_FUNC) &_carfollowingmodels_for_loop_gipps, 19},
     {"_carfollowingmodels_for_loop_wiedemann", (DL_FUNC) &_carfollowingmodels_for_loop_wiedemann, 20},
     {NULL, NULL, 0}

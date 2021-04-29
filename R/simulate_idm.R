@@ -165,7 +165,7 @@ simulate_idm <- function(
     ####### Allocate Vectors ##################################
 
     # acceleration rate
-    v_dot <- rep(NA_real_, time_length)
+    bn <- rep(NA_real_, time_length)
 
     # speed
     vn <- rep(NA_real_, time_length)
@@ -175,6 +175,9 @@ simulate_idm <- function(
 
     # spacing
     sn <- rep(NA_real_, time_length)
+
+    # bumper-to-bumper spacing
+    frsn <- rep(NA_real_, time_length)
 
     # speed difference
     deltav <- rep(NA_real_, time_length)
@@ -204,7 +207,8 @@ simulate_idm <- function(
     # )
 
 
-    sn[1] <- xn1[1] - xn_first[[n]] - ln1
+    sn[1] <- xn1[1] - xn_first[[n]]
+    frsn[1] <- sn[1] - ln1
 
 
 
@@ -246,15 +250,16 @@ simulate_idm <- function(
                                vn1,
                                sn_star,
                                sn,
+                               frsn,
                                xn,
                                xn1,
                                deltav,
-                               v_dot
+                               bn
     )
 
     ################## Result in a dataframe ###################################
 
-    # result_dfn <- data.frame(fvn=n, Time, xn1, vn1, ln1, sn_star, v_dot, xn, vn, sn, deltav)
+    # result_dfn <- data.frame(fvn=n, Time, xn1, vn1, ln1, sn_star, bn, xn, vn, sn, deltav)
 
 
     list_of_N_veh[[n]] <- result_dfn

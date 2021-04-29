@@ -1,1 +1,4 @@
 url: https://durraniu.github.io/carfollowingmodels/
+template:
+  params:
+    bootswatch: cerulean

@@ -27,11 +27,11 @@ vehicle(s), and model parameters.
 
 The models used in this package are cited below:
 
-| Model                    | Citation                                                     |
-|--------------------------|--------------------------------------------------------------|
-| Intelligent Driver Model | Treiber and Arne Kesting (2013)                              |
-| Gipps Model              | Gipps (1981)                                                 |
-| Wiedemann 74 Model       | Wiedemann and Reiter (1992); Higgs, Abbas, and Medina (2011) |
+| Model                    | Citation                   |
+|--------------------------|----------------------------|
+| Intelligent Driver Model | @Treiber2013               |
+| Gipps Model              | @Gipps1981                 |
+| Wiedemann 74 Model       | @Wiedemann1992; @Higgs2011 |
 
 Following shows an example with 5 following vehicles. The lead vehicle
 is moving at 13.9 m/s at the reference position of 100 m.
@@ -118,20 +118,20 @@ b=1.5
 
 
 head(results_idm)
-#>   fvn Time    xn1  vn1 ln1  sn_star      v_dot       xn       vn       sn
-#> 1   1  0.0 100.00 13.9   5 9.418207 -1.4407191 85.00000 12.00000 10.00000
-#> 2   1  0.1 101.39 13.9   5 8.860068 -1.1565350 86.19280 11.85593 10.19720
-#> 3   1  0.2 102.78 13.9   5 8.420694 -0.9399018 87.37261 11.74027 10.40739
-#> 4   1  0.3 104.17 13.9   5 8.069309 -0.7704464 88.54193 11.64628 10.62807
-#> 5   1  0.4 105.56 13.9   5 7.785079 -0.6351232 89.70271 11.56924 10.85729
-#> 6   1  0.5 106.95 13.9   5 7.553349 -0.5252076 90.85646 11.50573 11.09354
-#>      deltav
-#> 1 -1.900000
-#> 2 -2.044072
-#> 3 -2.159725
-#> 4 -2.253716
-#> 5 -2.330760
-#> 6 -2.394273
+#>   fvn Time    xn1  vn1 ln1         bn       xn       vn       sn    deltav
+#> 1   1  0.0 100.00 13.9   5 -1.4407191 85.00000 12.00000 15.00000 -1.900000
+#> 2   1  0.1 101.39 13.9   5 -1.1565350 86.19280 11.85593 15.19720 -2.044072
+#> 3   1  0.2 102.78 13.9   5 -0.9399018 87.37261 11.74027 15.40739 -2.159725
+#> 4   1  0.3 104.17 13.9   5 -0.7704464 88.54193 11.64628 15.62807 -2.253716
+#> 5   1  0.4 105.56 13.9   5 -0.6351232 89.70271 11.56924 15.85729 -2.330760
+#> 6   1  0.5 106.95 13.9   5 -0.5252076 90.85646 11.50573 16.09354 -2.394273
+#>    sn_star
+#> 1 9.418207
+#> 2 8.860068
+#> 3 8.420694
+#> 4 8.069309
+#> 5 7.785079
+#> 6 7.553349
 ```
 
 Now you can plot the results:
@@ -268,13 +268,13 @@ results_w74d <- simulate_wiedemann74_driver(
 
 
 head(results_w74d)
-#>   fvn Time    xn1  vn1        bn       xn       vn       sn    deltav AX
-#> 1   1  0.0 100.00 13.9 0.5926839 85.00000 12.00000 15.00000 -1.900000  7
-#> 2   1  0.1 101.39 13.9 0.5782258 86.20296 12.05927 15.18704 -1.840732  7
-#> 3   1  0.2 102.78 13.9 0.5641204 87.41178 12.11709 15.36822 -1.782909  7
-#> 4   1  0.3 104.17 13.9 0.5503591 88.62631 12.17350 15.54369 -1.726497  7
-#> 5   1  0.4 105.56 13.9 0.5369335 89.84641 12.22854 15.71359 -1.671461  7
-#> 6   1  0.5 106.95 13.9 0.5238353 91.07195 12.28223 15.87805 -1.617768  7
+#>   fvn Time    xn1  vn1 ln1        bn       xn       vn       sn    deltav AX
+#> 1   1  0.0 100.00 13.9   5 0.5926839 85.00000 12.00000 15.00000 -1.900000  7
+#> 2   1  0.1 101.39 13.9   5 0.5782258 86.20296 12.05927 15.18704 -1.840732  7
+#> 3   1  0.2 102.78 13.9   5 0.5641204 87.41178 12.11709 15.36822 -1.782909  7
+#> 4   1  0.3 104.17 13.9   5 0.5503591 88.62631 12.17350 15.54369 -1.726497  7
+#> 5   1  0.4 105.56 13.9   5 0.5369335 89.84641 12.22854 15.71359 -1.671461  7
+#> 6   1  0.5 106.95 13.9   5 0.5238353 91.07195 12.28223 15.87805 -1.617768  7
 #>         BX      ABX CX      SDX        SDV      CLDV       OPDV      BMAX B_App
 #> 1 6.928203 13.92820 50 20.85641 0.02560000 0.1024000 -0.1536000 0.5926839    NA
 #> 2 6.945291 13.94529 50 20.89058 0.02681103 0.1072441 -0.1608662 0.5782258    NA
@@ -282,13 +282,13 @@ head(results_w74d)
 #> 4 6.978109 13.97811 50 20.95622 0.02919785 0.1167914 -0.1751871 0.5503591    NA
 #> 5 6.993866 13.99387 50 20.98773 0.03037064 0.1214826 -0.1822238 0.5369335    NA
 #> 6 7.009203 14.00920 50 21.01841 0.03152790 0.1261116 -0.1891674 0.5238353    NA
-#>   B_Emg BNULL cf_state_sim ln1
-#> 1    NA  0.25 free_driving   5
-#> 2    NA  0.25 free_driving   5
-#> 3    NA  0.25 free_driving   5
-#> 4    NA  0.25 free_driving   5
-#> 5    NA  0.25 free_driving   5
-#> 6    NA  0.25 free_driving   5
+#>   B_Emg BNULL cf_state_sim
+#> 1    NA  0.25 free_driving
+#> 2    NA  0.25 free_driving
+#> 3    NA  0.25 free_driving
+#> 4    NA  0.25 free_driving
+#> 5    NA  0.25 free_driving
+#> 6    NA  0.25 free_driving
 
 
 ## Speed
@@ -300,6 +300,35 @@ ggplot(data = results_w74d) +
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+### Outputs
+
+| Variable       | Description                                                                                                                                   | Model       |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| fvn            | Following vehicle number                                                                                                                      | Common      |
+| Time           | Time in seconds                                                                                                                               | Common      |
+| xn1            | Position of front center of the lead vehicle                                                                                                  | Common      |
+| vn1            | Speed of the lead vehicle                                                                                                                     | Common      |
+| ln1            | Length of the lead vehicle                                                                                                                    | Common      |
+| bn             | Acceleration (positive and negative) of the following vehicle                                                                                 | Common      |
+| xn             | Position of front center of the following vehicle                                                                                             | Common      |
+| vn             | Speed of the following vehicle                                                                                                                | Common      |
+| sn             | Spacing between the front bumper of the following vehicle and the front bumper of the lead vehicle (including the length of the lead vehicle) | Common      |
+| deltav         | Speed difference (following vehicle speed - lead vehicle speed)                                                                               | Common      |
+| sn\_star       | Desired spacing                                                                                                                               | IDM         |
+| AX             | Standstill spacing                                                                                                                            | Wiedemann74 |
+| BX             | Calibration Parameter                                                                                                                         | Wiedemann74 |
+| ABX            | Minimum following distance                                                                                                                    | Wiedemann74 |
+| CX             | Calibration Parameter                                                                                                                         | Wiedemann74 |
+| SDX            | Minimum following distance + drift due to unequal speed difference in opening and closing                                                     | Wiedemann74 |
+| SDV            | Speed difference when driver perceives approaching a slow lead vehicle                                                                        | Wiedemann74 |
+| CLDV           | Speed difference when driver perceives closing in to lead vehicle                                                                             | Wiedemann74 |
+| OPDV           | Speed difference when driver perceives losing lead vehicle                                                                                    | Wiedemann74 |
+| BMAX           | Acceleration in Free-driving                                                                                                                  | Wiedemann74 |
+| B\_App         | Deceleration in Approaching                                                                                                                   | Wiedemann74 |
+| B\_Emg         | Deceleration in Emergency-braking                                                                                                             | Wiedemann74 |
+| BNULL          | Acceleration (positive and negative) in Following and at desired speed in Free-driving                                                        | Wiedemann74 |
+| cf\_state\_sim | Driving state (Free-driving, Approaching, Following, Emergency-braking)                                                                       | Wiedemann74 |
 
 ### Compare Models
 
@@ -348,41 +377,3 @@ ggplot() +
 <img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" />
 
 # References
-
-<div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-Gipps1981" class="csl-entry">
-
-Gipps, P G. 1981. “<span class="nocase">A behavioural car following
-model for computer simulation</span>.” *Transportation Research Part B*
-15: 101–15.
-
-</div>
-
-<div id="ref-Higgs2011" class="csl-entry">
-
-Higgs, Bryan, MM Abbas, and Alejandra Medina. 2011. “<span
-class="nocase">Analysis of the Wiedemann Car Following Model over
-Different Speeds using Naturalistic Data</span>.” *3rd International
-Conference on Road Safety and Simulation*, 1–22.
-
-</div>
-
-<div id="ref-Treiber2013" class="csl-entry">
-
-Treiber, Martin, and Arne Kesting. 2013. “<span class="nocase">Traffic
-flow dynamics</span>.” *Traffic Flow Dynamics: Data, Models and
-Simulation, Springer-Verlag Berlin Heidelberg*.
-
-</div>
-
-<div id="ref-Wiedemann1992" class="csl-entry">
-
-Wiedemann, Reiter, and U Reiter. 1992. “<span class="nocase">Microscopic
-traffic simulation: the simulation system MISSION, background and actual
-state</span>.” *Project ICARUS (V1052) Final Report. Brussels, CEC* 2:
-1–53.
-
-</div>
-
-</div>
