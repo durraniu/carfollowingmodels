@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -236,13 +236,11 @@
 
 <span class='va'>pred_data</span> <span class='op'>&lt;-</span> <span class='va'>pred_data</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>obs_data</span><span class='op'>)</span>, <span class='op'>]</span>
 
-<span class='co'># The variable sn in obs_data is the front-bumper-to-rear-bumper spacing, but in pred_data it is front-bumper-to#'-front-bumper spacing. So, we subtract the length to get the same variable:</span>
-<span class='va'>pred_data</span><span class='op'>$</span><span class='va'>frsn</span> <span class='op'>&lt;-</span> <span class='va'>pred_data</span><span class='op'>$</span><span class='va'>sn</span> <span class='op'>-</span> <span class='va'>pred_data</span><span class='op'>$</span><span class='va'>ln1</span>
 
 
 <span class='co'># Now we can estimate the sum of squared errors:</span>
-<span class='fu'>sse</span><span class='op'>(</span><span class='va'>pred_data</span><span class='op'>$</span><span class='va'>frsn</span>, <span class='va'>obs_data</span><span class='op'>$</span><span class='va'>sn</span>, type <span class='op'>=</span> <span class='st'>"mix"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.7970804</div><div class='input'><span class='fu'>sse</span><span class='op'>(</span><span class='va'>pred_data</span><span class='op'>$</span><span class='va'>vn</span>, <span class='va'>obs_data</span><span class='op'>$</span><span class='va'>vn</span>, type <span class='op'>=</span> <span class='st'>"abs"</span><span class='op'>)</span>
+<span class='fu'>sse</span><span class='op'>(</span><span class='va'>pred_data</span><span class='op'>$</span><span class='va'>sn</span>, <span class='va'>obs_data</span><span class='op'>$</span><span class='va'>sn</span>, type <span class='op'>=</span> <span class='st'>"mix"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.7188436</div><div class='input'><span class='fu'>sse</span><span class='op'>(</span><span class='va'>pred_data</span><span class='op'>$</span><span class='va'>vn</span>, <span class='va'>obs_data</span><span class='op'>$</span><span class='va'>vn</span>, type <span class='op'>=</span> <span class='st'>"abs"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.001429376</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
