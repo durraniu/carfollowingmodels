@@ -62,8 +62,12 @@
 #'  vn1_complete[t] <- ifelse(vn1_complete[t] < 0, 0, vn1_complete[t])
 #'
 #'
-#'  xn1_complete[t] <- xn1_complete[t-1] + (vn1_complete[t-1] * time_frame) +
-#'   (0.5 * bn1_complete[t-1] * (time_frame)^2)
+#'xn1_complete[t] <- ifelse(
+#'  vn1_complete[t] > 0,
+#'  xn1_complete[t-1] + (vn1_complete[t-1] * time_frame) +
+#'    (0.5 * bn1_complete[t-1] * (time_frame)^2),
+#'  xn1_complete[t-1]
+#')
 #'
 #'}
 #'
