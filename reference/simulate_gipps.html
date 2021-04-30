@@ -229,8 +229,12 @@
  <span class='va'>vn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>vn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='va'>vn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span><span class='op'>)</span>
 
 
- <span class='va'>xn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>xn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>+</span> <span class='op'>(</span><span class='va'>vn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>*</span> <span class='va'>time_frame</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='op'>(</span><span class='fl'>0.5</span> <span class='op'>*</span> <span class='va'>bn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>*</span> <span class='op'>(</span><span class='va'>time_frame</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>xn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span>
+ <span class='va'>vn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span> <span class='op'>&gt;</span> <span class='fl'>0</span>,
+ <span class='va'>xn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>+</span> <span class='op'>(</span><span class='va'>vn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>*</span> <span class='va'>time_frame</span><span class='op'>)</span> <span class='op'>+</span>
+   <span class='op'>(</span><span class='fl'>0.5</span> <span class='op'>*</span> <span class='va'>bn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>*</span> <span class='op'>(</span><span class='va'>time_frame</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,
+ <span class='va'>xn1_complete</span><span class='op'>[</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>
+<span class='op'>)</span>
 
 <span class='op'>}</span>
 
@@ -8600,7 +8604,7 @@ bcap<span class='op'>=</span><span class='op'>-</span><span class='fl'>2</span>
 #&gt; 8332   1 833.1 11680.09 13.9 6.5  0.000000e+00 11655.40417 13.90000 24.68583
 #&gt; 8333   1 833.2 11681.48 13.9 6.5  0.000000e+00 11656.79417 13.90000 24.68583
 #&gt;             deltav    vn_ff    vn_cf
-#&gt; 1    -1.900000e+00 12.00000       NA
+#&gt; 1    -1.900000e+00 12.00000 12.00000
 #&gt; 2    -1.821844e+00 12.07816 12.83576
 #&gt; 3    -1.745994e+00 12.15401 12.85679
 #&gt; 4    -1.672398e+00 12.22760 12.87691
