@@ -24,7 +24,7 @@ The goal of `carfollowingmodels` is to make several car following models availab
 
 ## Installation
 
-`carfollowingmodels`is not on CRAN yet. For now, you can download the development version from GitHub with:
+`carfollowingmodels`is not on CRAN yet. But you can download the development version from GitHub with:
 
 ``` r
 # install.packages("devtools")

@@ -11,13 +11,16 @@ available in R for numerical simulation.
 
 ## Installation
 
-`carfollowingmodels`is not on CRAN yet. You can download the development
-version from GitHub with:
+`carfollowingmodels`is not on CRAN yet. But you can download the
+development version from GitHub with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("durraniu/carfollowingmodels")
 ```
+
+You need to have Rtools installed which you can download and setup using
+the [instructions here](https://cran.r-project.org/bin/windows/Rtools/).
 
 ## Example
 
