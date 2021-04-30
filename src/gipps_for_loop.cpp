@@ -96,7 +96,9 @@ DataFrame for_loop_gipps(double resolution,
                                    Named("xn") = xn,
                                    Named("vn") = vn,
                                    Named("sn") = sn,
-                                   Named("deltav") = deltav);
+                                   Named("deltav") = deltav,
+                                   Named("vn_ff") = vn_ff,
+                                   Named("vn_cf") = vn_cf);
 
   return df;
 
