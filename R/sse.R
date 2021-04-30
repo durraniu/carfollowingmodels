@@ -114,19 +114,19 @@ sse <- function(y_pred, y_data, type = "mix"){
 
   if (type == "mix"){
 
-    sse <- sum(((y_pred - y_data)^2) / abs(y_data))  / sum(abs(y_data))
+    sse <- sum(((y_pred - y_data)^2) / abs(y_data), na.rm = TRUE)  / sum(abs(y_data), na.rm = TRUE)
 
   } else if (type == "abs") {
 
-    sse <- sum((y_pred - y_data)^2) / sum((y_data)^2)
+    sse <- sum(((y_pred - y_data)^2), na.rm = TRUE) / sum(((y_data)^2), na.rm = TRUE)
 
   } else if (type == "rel") {
 
-    sse <- sum(((y_pred - y_data) / y_data)^2) / length(y_data)
+    sse <- sum((((y_pred - y_data) / y_data)^2), na.rm = TRUE) / length(na.omit(y_data))
 
   } else {
 
-    sse <- sum(((y_pred - y_data)^2) / abs(y_data))  / sum(abs(y_data))
+    sse <- sum(((y_pred - y_data)^2) / abs(y_data), na.rm = TRUE)  / sum(abs(y_data), na.rm = TRUE)
 
   }
 
