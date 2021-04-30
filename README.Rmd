@@ -41,9 +41,9 @@ The models used in this package are cited below:
 
 | Model                    | Citation                     |
 |--------------------------|------------------------------|
-| Intelligent Driver Model | @Treiber2013                |
-| Gipps Model              | @Gipps1981                  |
-| Wiedemann 74 Model       | @Wiedemann1992; @Higgs2011 |
+| Intelligent Driver Model | \@Treiber2013                |
+| Gipps Model              | \@Gipps1981                  |
+| Wiedemann 74 Model       | \@Wiedemann1992; \@Higgs2011 |
 
 Following shows an example with 5 following vehicles. The lead vehicle is moving at 13.9 m/s at the reference position of 100 m.
 
@@ -258,6 +258,8 @@ ggplot(data = results_w74d) +
 | sn           | Spacing between the front bumper of the following vehicle and the front bumper of the lead vehicle (including the length of the lead vehicle) | Common      |
 | deltav       | Speed difference (following vehicle speed - lead vehicle speed)                                                                               | Common      |
 | sn_star      | Desired spacing                                                                                                                               | IDM         |
+| vn_ff        | Speed of following vehicle with free-flow equation                                                                                            | Gipps       |
+| vn_cf        | Speed of following vehicle with car-following equation                                                                                        |             |
 | AX           | Standstill spacing                                                                                                                            | Wiedemann74 |
 | BX           | Calibration Parameter                                                                                                                         | Wiedemann74 |
 | ABX          | Minimum following distance                                                                                                                    | Wiedemann74 |
@@ -302,7 +304,7 @@ ggplot() +
   geom_line(data = results_gipps_fv1 ,
             aes(x = Time, y = sn, color = "Gipps")) +
   geom_line(data = results_idm_fv1 ,
-            aes(x = Time, y = sn+ln1, color = "IDM")) +
+            aes(x = Time, y = sn, color = "IDM")) +
   geom_line(data = results_w74d_fv1 ,
             aes(x = Time, y = sn, color = "W74")) +
   ggtitle("Spacing (including length of lead vehicle)")

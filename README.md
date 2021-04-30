@@ -30,11 +30,11 @@ vehicle(s), and model parameters.
 
 The models used in this package are cited below:
 
-| Model                    | Citation                                                     |
-|--------------------------|--------------------------------------------------------------|
-| Intelligent Driver Model | Treiber and Arne Kesting (2013)                              |
-| Gipps Model              | Gipps (1981)                                                 |
-| Wiedemann 74 Model       | Wiedemann and Reiter (1992); Higgs, Abbas, and Medina (2011) |
+| Model                    | Citation                   |
+|--------------------------|----------------------------|
+| Intelligent Driver Model | @Treiber2013               |
+| Gipps Model              | @Gipps1981                 |
+| Wiedemann 74 Model       | @Wiedemann1992; @Higgs2011 |
 
 Following shows an example with 5 following vehicles. The lead vehicle
 is moving at 13.9 m/s at the reference position of 100 m.
@@ -326,6 +326,8 @@ ggplot(data = results_w74d) +
 | sn             | Spacing between the front bumper of the following vehicle and the front bumper of the lead vehicle (including the length of the lead vehicle) | Common      |
 | deltav         | Speed difference (following vehicle speed - lead vehicle speed)                                                                               | Common      |
 | sn\_star       | Desired spacing                                                                                                                               | IDM         |
+| vn\_ff         | Speed of following vehicle with free-flow equation                                                                                            | Gipps       |
+| vn\_cf         | Speed of following vehicle with car-following equation                                                                                        |             |
 | AX             | Standstill spacing                                                                                                                            | Wiedemann74 |
 | BX             | Calibration Parameter                                                                                                                         | Wiedemann74 |
 | ABX            | Minimum following distance                                                                                                                    | Wiedemann74 |
@@ -377,7 +379,7 @@ ggplot() +
   geom_line(data = results_gipps_fv1 ,
             aes(x = Time, y = sn, color = "Gipps")) +
   geom_line(data = results_idm_fv1 ,
-            aes(x = Time, y = sn+ln1, color = "IDM")) +
+            aes(x = Time, y = sn, color = "IDM")) +
   geom_line(data = results_w74d_fv1 ,
             aes(x = Time, y = sn, color = "W74")) +
   ggtitle("Spacing (including length of lead vehicle)")
@@ -387,41 +389,3 @@ ggplot() +
 <img src="man/figures/README-unnamed-chunk-4-2.png" width="100%" />
 
 # References
-
-<div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-Gipps1981" class="csl-entry">
-
-Gipps, P G. 1981. “<span class="nocase">A behavioural car following
-model for computer simulation</span>.” *Transportation Research Part B*
-15: 101–15.
-
-</div>
-
-<div id="ref-Higgs2011" class="csl-entry">
-
-Higgs, Bryan, MM Abbas, and Alejandra Medina. 2011. “<span
-class="nocase">Analysis of the Wiedemann Car Following Model over
-Different Speeds using Naturalistic Data</span>.” *3rd International
-Conference on Road Safety and Simulation*, 1–22.
-
-</div>
-
-<div id="ref-Treiber2013" class="csl-entry">
-
-Treiber, Martin, and Arne Kesting. 2013. “<span class="nocase">Traffic
-flow dynamics</span>.” *Traffic Flow Dynamics: Data, Models and
-Simulation, Springer-Verlag Berlin Heidelberg*.
-
-</div>
-
-<div id="ref-Wiedemann1992" class="csl-entry">
-
-Wiedemann, Reiter, and U Reiter. 1992. “<span class="nocase">Microscopic
-traffic simulation: the simulation system MISSION, background and actual
-state</span>.” *Project ICARUS (V1052) Final Report. Brussels, CEC* 2:
-1–53.
-
-</div>
-
-</div>
