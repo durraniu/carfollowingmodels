@@ -41,9 +41,9 @@ The models used in this package are cited below:
 
 | Model                    | Citation                     |
 |--------------------------|------------------------------|
-| Intelligent Driver Model | \@Treiber2013                |
-| Gipps Model              | \@Gipps1981                  |
-| Wiedemann 74 Model       | \@Wiedemann1992; \@Higgs2011 |
+| Intelligent Driver Model | @Treiber2013                |
+| Gipps Model              | @Gipps1981                  |
+| Wiedemann 74 Model       | @Wiedemann1992; @Higgs2011 |
 
 Following shows an example with 5 following vehicles. The lead vehicle is moving at 13.9 m/s at the reference position of 100 m.
 
