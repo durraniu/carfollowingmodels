@@ -34,6 +34,15 @@ DataFrame for_loop_gipps(double resolution,
     // ## free flow
     vn_ff[t] = vn[t-1] + (2.5 * an * tau * (1 - (vn[t-1])/Vn)) * ((0.025 + pow((vn[t-1]/Vn), 0.5)));
 
+    if (Rcpp::NumericVector::is_na(vn1[t-1])) {
+
+      vn1[t-1] = 0;
+
+    } else {
+
+      vn1[t-1] = vn1[t-1];
+
+      }
 
     // ## car following
     vn_cf[t] = (bn_const * tau) + sqrt(
